@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YugaClub | Tienda Virtual</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #0f1115;      /* Fondo oscuro profundo */
+            --card-bg: #1a1d24;       /* Fondo de tarjetas (gris frío) */
+            --accent-color: #4f6b82;   /* Azul frío/grisáceo elegante */
+            --text-main: #e2e8f0;      /* Texto principal */
+            --text-muted: #94a3b8;     /* Texto secundario */
+            --border-color: #2a2f3a;   /* Bordes sutiles */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding-bottom: 100px; /* Espacio para la barra de WhatsApp fija */
+        }
+
+        /* --- HEADER --- */
+        header {
+            text-align: center;
+            padding: 60px 20px 40px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 600;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        header p.slogan {
+            font-size: 1rem;
+            font-style: italic;
+            color: var(--text-muted);
+            margin-bottom: 5px;
+        }
+
+        header p.location {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent-color);
+        }
+
+        /* --- FILTRO / SELECT --- */
+        .filter-container {
+            max-width: 1200px;
+            margin: 40px auto 20px;
+            padding: 0 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .filter-container label {
+            font-size: 1rem;
+            color: var(--text-muted);
+        }
+
+        #category-select {
+            background-color: var(--card-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border-color);
+            padding: 10px 20px;
+            font-size: 1rem;
+            border-radius: 4px;
+            outline: none;
+            cursor: pointer;
+            transition: border-color 0.3s;
+        }
+
+        #category-select:focus {
+            border-color: var(--accent-color);
+        }
+
+        /* --- CATALOGO --- */
+        .catalog {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        /* Marcador de posición para imágenes (puedes cambiar el src por tus rutas reales) */
+        .product-img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            background-color: #252932;
+        }
+
+        .product-info {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+            color: #fff;
+        }
+
+        .product-price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 15px;
+        }
+
+        /* Controles de cantidad */
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+            border-top: 1px solid var(--border-color);
+            padding-top: 15px;
+        }
+
+        .qty-btn {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            width: 35px;
+            height: 35px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background 0.2s;
+        }
+
+        .qty-btn:hover {
+            background-color: var(--border-color);
+        }
+
+        .qty-number {
+            font-size: 1.1rem;
+            font-weight: 600;
+            width: 40px;
+            text-align: center;
+        }
+
+        /* --- BARRA FIJA DE WHATSAPP --- */
+        .whatsapp-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #128c7e; /* Verde WhatsApp kept for recognition, or use var(--accent-color) if you want it strictly dark */
+            background: linear-gradient(90deg, #0f1115 0%, #128c7e 100%);
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.3);
+            z-index: 1000;
+        }
+
+        .whatsapp-info p {
+            font-size: 0.9rem;
+        }
+        .whatsapp-info span {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .btn-send-ws {
+            background-color: #25d366;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-send-ws:hover {
+            background-color: #20ba5a;
+        }
+
+        /* Ocultar elementos que no correspondan al filtro */
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>YugaClub</h1>
+        <p class="slogan">"Encontraste justo lo que buscabas"</p>
+        <p class="location">Maracaibo - Tienda Virtual</p>
+    </header>
+
+    <div class="filter-container">
+        <label for="category-select">Explorar Catálogo:</label>
+        <select id="category-select" onchange="filterCategory()">
+            <option value="todos">Mostrar Todo</option>
+            <option value="ropa">Ropa</option>
+            <option value="gorras">Gorras</option>
+            <option value="accesorios">Accesorios</option>
+            <option value="perfumes">Perfumes</option>
+            <option value="zapatos">Zapatos</option>
+        </select>
+    </div>
+
+    <main class="catalog" id="catalog-container">
+        </main>
+
+    <div class="whatsapp-bar">
+        <div class="whatsapp-info">
+            <p>Artículos seleccionados: <span id="total-items">0</span></p>
+        </div>
+        <button class="btn-send-ws" onclick="sendWhatsApp()">Enviar Pedido por WhatsApp</button>
+    </div>
+
+    <script>
+// Teléfono de YugaClub configurado
+const PHONE_NUMBER = "+584128237598";
+
+// Base de datos provisional con 3 artículos por categoría
+const products = [
+    // Ropa
+    { id: 1, category: 'ropa', name: 'Franela Oversize', price: 20, img: 'INVENTORY/4001.webp' },
+    { id: 2, category: 'ropa', name: 'Sudadera Dark', price: 30, img: 'INVENTORY/4002.jpg' },
+    { id: 3, category: 'ropa', name: 'Pantalon Cargo', price: 25, img: 'INVENTORY/4003.avif' },
+    
+    // Gorras
+    { id: 4, category: 'gorras', name: 'Gorra Personalizada', price: 20, img: 'INVENTORY/1001.png' },
+    { id: 5, category: 'gorras', name: 'Gorra Camionera', price: 15, img: 'INVENTORY/1002.jpg' },
+    { id: 6, category: 'gorras', name: 'Beanie Urbano', price: 10, img: 'INVENTORY/1003.webp' },
+
+    // Accesorios
+    { id: 7, category: 'accesorios', name: 'Cadena Acero Inoxidable', price: 12, img: 'INVENTORY/2001.jpg' },
+    { id: 8, category: 'accesorios', name: 'Lentes de Sol Dark Wave', price: 22, img: 'INVENTORY/2002.webp' },
+    { id: 9, category: 'accesorios', name: 'Pulsera Cuero y Metal', price: 10, img: 'INVENTORY/2003.jpg' },
+
+    // Perfumes
+    { id: 10, category: 'perfumes', name: 'Le Male Elixir (100ml)', price: 40, img: 'INVENTORY/3001.webp' },
+    { id: 11, category: 'perfumes', name: 'Aqua di Gio (100ml)', price: 40, img: 'INVENTORY/3002.jpg' },
+    { id: 12, category: 'perfumes', name: 'Cloud (100ml)', price: 40, img: 'INVENTORY/3003.jpeg' },
+
+    // Zapatos
+    { id: 13, category: 'zapatos', name: 'ADIDAS CAMPUS 00S', price: 65, img: 'INVENTORY/0002.AVIF' },
+    { id: 14, category: 'zapatos', name: 'NIKE AIR JORDAN', price: 70, img: 'INVENTORY/0001.AVIF' },
+    { id: 15, category: 'zapatos', name: 'PUMA FUTURE PRO FG/AG', price: 60, img: 'INVENTORY/0003.WEBP' }
+];
+
+// Objeto para llevar la cuenta del carrito
+let cart = {};
+
+// Renderizar productos en el HTML (Añadido el atributo data-category para asegurar el tiro)
+const container = document.getElementById('catalog-container');
+
+products.forEach(product => {
+    const card = document.createElement('div');
+    card.className = 'product-card';
+    card.setAttribute('data-category', product.category); // <-- Clave para el filtro seguro
+    card.innerHTML = `
+        <img src="${product.img}" alt="${product.name}" class="product-img">
+        <div class="product-info">
+            <h3 class="product-title">${product.name}</h3>
+            <p class="product-price">$${product.price}</p>
+            <div class="quantity-controls">
+                <button class="qty-btn" onclick="updateQty(${product.id}, -1)">-</button>
+                <span class="qty-number" id="qty-${product.id}">0</span>
+                <button class="qty-btn" onclick="updateQty(${product.id}, 1)">+</button>
+            </div>
+        </div>
+    `;
+    container.appendChild(card);
+});
+
+// Función para cambiar cantidades
+function updateQty(id, change) {
+    if (!cart[id]) cart[id] = 0;
+    cart[id] += change;
+    if (cart[id] < 0) cart[id] = 0;
+    
+    document.getElementById(`qty-${id}`).innerText = cart[id];
+    updateTotalBadge();
+}
+
+// Actualizar el número total de items en la barra inferior
+function updateTotalBadge() {
+    let total = 0;
+    for (let id in cart) {
+        total += cart[id];
+    }
+    document.getElementById('total-items').innerText = total;
+}
+
+// NUEVA FUNCIÓN DE FILTRADO CORREGIDA
+function filterCategory() {
+    const selected = document.getElementById('category-select').value;
+    const allCards = document.querySelectorAll('.product-card');
+
+    allCards.forEach(card => {
+        const cardCategory = card.getAttribute('data-category');
+        
+        if (selected === 'todos' || cardCategory === selected) {
+            card.style.display = 'flex'; // Muestra la tarjeta con su diseño flexbox
+        } else {
+            card.style.display = 'none';  // Oculta por completo la tarjeta
+        }
+    });
+}
+
+// Construir el mensaje de WhatsApp y redirigir
+function sendWhatsApp() {
+    let itemsText = "";
+    let totalPrice = 0;
+    
+    products.forEach(product => {
+        const qty = cart[product.id] || 0;
+        if (qty > 0) {
+            const subtotal = qty * product.price;
+            itemsText += `• ${qty}x ${product.name} ($${product.price} c/u) = $${subtotal}\n`;
+            totalPrice += subtotal;
+        }
+    });
+
+    if (totalPrice === 0) {
+        alert("Por favor, agrega al menos un artículo para enviar el pedido.");
+        return;
+    }
+
+    const message = `🛍️ *NUEVO PEDIDO* 🛍️\n` +
+                    `------------------------------------------\n` +
+                    `${itemsText}` +
+                    `------------------------------------------\n` +
+                    `💰 *Total a Estimar:* $${totalPrice}\n\n` +
+                    `¿Me podrían confirmar disponibilidad de estos artículos? ¡Muchas gracias!`;
+
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${PHONE_NUMBER.replace('+', '')}?text=${encodedMessage}`;
+    
+    window.open(whatsappUrl, '_blank');
+}
+    </script>
+</body>
+</html>
