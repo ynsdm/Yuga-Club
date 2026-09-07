@@ -202,55 +202,358 @@
     <script>
         // Database of products (Clothing, Perfumes, Accessories)
         const products = [
-            {
-                id: 1,
-                name: "Oversized Hoodie 'Yuga Cyber'",
-                category: "ropa",
-                price: 35.00,
-                image: "https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&q=80&w=600",
-                description: "Sudadera con capucha estilo streetwear, algodón premium pesado."
-            },
-            {
-                id: 2,
-                name: "Perfume Khamrah - Lattafa (100ml)",
-                category: "perfumes",
-                price: 48.00,
-                image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
-                description: "Aroma envolvente especiado y ambarado con gran duración en piel."
-            },
-            {
-                id: 3,
-                name: "Cadena Cubana Minimal (Acero Inoxidable)",
-                category: "accesorios",
-                price: 18.00,
-                image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&q=80&w=600",
-                description: "Eslabón resistente al agua y sudor, acabado brillante inalterable."
-            },
-            {
-                id: 4,
-                name: "Graphic Tee 'Dark Aesthetic'",
-                category: "ropa",
-                price: 22.00,
-                image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&q=80&w=600",
-                description: "Camiseta de algodón con impresión frontal de alta durabilidad."
-            },
-            {
-                id: 5,
-                name: "Perfume Le Male Elixir - Jean Paul Gaultier",
-                category: "perfumes",
-                price: 85.00,
-                image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600",
-                description: "Notas intensas de lavanda, haba tonka y benjuí. Alta proyección."
-            },
-            {
-                id: 6,
-                name: "Gafas de Sol Estilo Cyberpunk",
-                category: "accesorios",
-                price: 25.00,
-                image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&q=80&w=600",
-                description: "Diseño futurista con protección UV400 y marco ultraligero."
-            }
-        ];
+{
+        id: 1,
+        name: "Odyssey Candee (Armaf)",
+        category: "perfumes",
+        promoPrice: 0.00,
+        basePrice: 0.00,
+        image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+        description: "Fragancia dulce y cautivadora con acordes modernos y vibrantes."
+    },
+    {
+        id: 2,
+        name: "Thank U Next (Ariana Grande)",
+        category: "perfumes",
+        promoPrice: 26.00,
+        basePrice: 31.20,
+        image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600",
+        description: "Aroma frutal y gourmand con notas de pera, frambuesa y un fondo cremoso de coco."
+    },
+    {
+        id: 3,
+        name: "Fame (Paco Rabanne)",
+        category: "perfumes",
+        promoPrice: 24.00,
+        basePrice: 28.80,
+        image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+        description: "Perfume vanguardista con notas de mango jugoso, jazmín avainillado e incienso cremoso."
+    },
+    {
+        id: 4,
+        name: "212 VIP Rosé (Carolina Herrera)",
+        category: "perfumes",
+        promoPrice: 22.00,
+        basePrice: 26.40,
+        image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600",
+        description: "Elegante y festivo, con notas de champaña rosada, flores melocotón y almizcle blanco."
+    },
+    {
+        id: 5,
+        name: "La Vie Est Belle (Lancôme)",
+        category: "perfumes",
+        promoPrice: 21.00,
+        basePrice: 25.20,
+        image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+        description: "Clásico moderno y sofisticado con iris, pachulí y un corazón dulce avainillado."
+    },
+    {
+        id: 6,
+        name: "Cloud (Ariana Grande)",
+        category: "perfumes",
+        promoPrice: 26.00,
+        basePrice: 31.20,
+        image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600",
+        description: "Adictiva fragancia con lavanda, pera, bergamota y un toque reconfortante de crema batida."
+    },
+    {
+        id: 7,
+        name: "Good Girl Black (Carolina Herrera)",
+        category: "perfumes",
+        promoPrice: 0.00,
+        basePrice: 0.00,
+        image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+        description: "Intenso y seductor, combina notas de nardos, haba tonka tostada y cacao."
+    },
+    {
+        id: 8,
+        name: "La Belle Paradise Garden (Jean Paul Gaultier)",
+        category: "perfumes",
+        promoPrice: 24.00,
+        basePrice: 28.80,
+        image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600",
+        description: "Exótico y floral acuático con notas de nenúfar, iris y vainilla cálida."
+    },
+    {
+        id: 9,
+        name: "Eclaire (Lattafa)",
+        category: "perfumes",
+        promoPrice: 28.00,
+        basePrice: 33.60,
+        image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+        description: "Deliciosa fragancia gourmand con notas dulces de caramelo, vainilla y leche."
+    },
+    {
+        id: 10,
+        name: "Meow (Katy Perry)",
+        category: "perfumes",
+        promoPrice: 22.00,
+        basePrice: 26.40,
+        image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600",
+        description: "Juguetón y frutal con salida de mandarina, pera, jazmín y un fondo de almizcle avainillado."
+    },
+    {
+        id: 11,
+        name: "212 VIP Gold (Carolina Herrera)",
+        category: "perfumes",
+        promoPrice: 22.00,
+        basePrice: 26.40,
+        image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+        description: "Vibrante y lujoso, con acordes frutales y un fondo cálido ambarino."
+    },
+    {
+        id: 12,
+        name: "Victoria (Lattafa)",
+        category: "perfumes",
+        promoPrice: 35.00,
+        basePrice: 42.00,
+        image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600",
+        description: "Elegante esencia con ricos matices florales y maderas orientales."
+    },
+    {
+        id: 13,
+        name: "Yara Tous (Lattafa)",
+        category: "perfumes",
+        promoPrice: 28.00,
+        basePrice: 33.60,
+        image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+        description: "Tropical y cremoso, con notas de mango, maracuyá, jazmín y vainilla almizclada."
+    },
+    {
+        id: 14,
+        name: "Yara Moi (Lattafa)",
+        category: "perfumes",
+        promoPrice: 22.00,
+        basePrice: 26.40,
+        image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600",
+        description: "Misterioso y ambarino con notas de melocotón, jazmín, caramelo y sándalo."
+    },
+    {
+        id: 15,
+        name: "Yara (Lattafa)",
+        category: "perfumes",
+        promoPrice: 28.00,
+        basePrice: 33.60,
+        image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+        description: "Famoso aroma oriental avainillado, suave, empolvado y sumamente femenino."
+    },
+    {
+        id: 16,
+        name: "Sorbetto Rosso (Escada)",
+        category: "perfumes",
+        promoPrice: 22.00,
+        basePrice: 26.40,
+        image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600",
+        description: "Veraniego y refrescante, inspirado en el aroma de la sandía jugosa y notas acuáticas."
+    },
+    {
+        id: 17,
+        name: "Rockin' Rio (Escada)",
+        category: "perfumes",
+        promoPrice: 22.00,
+        basePrice: 26.40,
+        image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+        description: "Tropical y frutal con explosivas notas de piña, papaya y mandarina."
+    },
+    {
+        id: 18,
+        name: "Berry On Top (Lattafa)",
+        category: "perfumes",
+        promoPrice: 39.00,
+        basePrice: 46.80,
+        image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600",
+        description: "Intensa explosión de frutos rojos y acordes dulces de alta fijación."
+    },
+    {
+        id: 19,
+        name: "Sauvage (Dior)",
+        category: "perfumes",
+        promoPrice: 24.00,
+        basePrice: 28.80,
+        image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+        description: "Fresco, amaderado y radical con bergamota de Calabria y ambroxan potente."
+    },
+    {
+        id: 20,
+        name: "CH Men (Carolina Herrera)",
+        category: "perfumes",
+        promoPrice: 22.00,
+        basePrice: 26.40,
+        image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600",
+        description: "Elegante y casual, con notas de hierba, cuero, madera y un toque de azúcar."
+    },
+    {
+        id: 21,
+        name: "Starwalker (Montblanc)",
+        category: "perfumes",
+        promoPrice: 20.00,
+        basePrice: 24.00,
+        image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+        description: "Amaderado especiado fresco con notas de bambú, bergamota y almizcle blanco."
+    },
+    {
+        id: 22,
+        name: "Phantom (Paco Rabanne)",
+        category: "perfumes",
+        promoPrice: 24.00,
+        basePrice: 28.80,
+        image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600",
+        description: "Futurista y energizante con notas de lavanda cremosa, limón amalfi y vainilla ahumada."
+    },
+    {
+        id: 23,
+        name: "Emblem (Montblanc)",
+        category: "perfumes",
+        promoPrice: 20.00,
+        basePrice: 24.00,
+        image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+        description: "Aromático especiado con hojas de violeta, esclarea y maderas nobles."
+    },
+    {
+        id: 24,
+        name: "Club de Nuit Lionheart (Armaf)",
+        category: "perfumes",
+        promoPrice: 35.00,
+        basePrice: 42.00,
+        image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600",
+        description: "Audaz y potente, con carácter distinguido y excelente proyección."
+    },
+    {
+        id: 25,
+        name: "Khamrah Dukhan (Lattafa)",
+        category: "perfumes",
+        promoPrice: 36.00,
+        basePrice: 43.20,
+        image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+        description: "Versión intensa y ahumada de Khamrah, con especias orientales y maderas profundas."
+    },
+    {
+        id: 26,
+        name: "Odyssey Tyrant (Armaf)",
+        category: "perfumes",
+        promoPrice: 28.00,
+        basePrice: 33.60,
+        image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600",
+        description: "Sofisticado y magnético, ideal para hombre con notas especiadas y amaderadas."
+    },
+    {
+        id: 27,
+        name: "Odyssey Oud (Armaf)",
+        category: "perfumes",
+        promoPrice: 28.00,
+        basePrice: 33.60,
+        image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+        description: "Profundo y misterioso, fusionando la fuerza del oud con especias y cuero."
+    },
+    {
+        id: 28,
+        name: "Swiss Army Classic (Victorinox)",
+        category: "perfumes",
+        promoPrice: 22.00,
+        basePrice: 26.40,
+        image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600",
+        description: "Clásico fresco y limpio con notas verdes, menta, lavanda y ciprés."
+    },
+    {
+        id: 29,
+        name: "212 VIP Men (Carolina Herrera)",
+        category: "perfumes",
+        promoPrice: 22.00,
+        basePrice: 26.40,
+        image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+        description: "Carismático y enérgico, con notas de menta, vodka, maracuyá y maderas ambarinas."
+    },
+    {
+        id: 30,
+        name: "Club de Nuit Intense Man (Armaf)",
+        category: "perfumes",
+        promoPrice: 0.00,
+        basePrice: 0.00,
+        image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600",
+        description: "Icónico perfume masculino con salida cítrica de limón y piña, sobre un fondo amaderado y ahumado."
+    },
+    {
+        id: 31,
+        name: "Invictus (Paco Rabanne)",
+        category: "perfumes",
+        promoPrice: 20.00,
+        basePrice: 24.00,
+        image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+        description: "Vigoroso y triunfal con notas marinas, pomelo y hoja de laurel."
+    },
+    {
+        id: 32,
+        name: "Oud for Glory (Lattafa)",
+        category: "perfumes",
+        promoPrice: 28.00,
+        basePrice: 33.60,
+        image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600",
+        description: "Majestuoso y especiado, con notas de azafrán, nuez moscada, lavanda y madera de oud."
+    },
+    {
+        id: 33,
+        name: "Bharara Blue (Bharara)",
+        category: "perfumes",
+        promoPrice: 28.00,
+        basePrice: 33.60,
+        image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+        description: "Fresco, frutal y amaderado con excelente rendimiento y estela penetrante."
+    },
+    {
+        id: 34,
+        name: "Bad Boy (Carolina Herrera)",
+        category: "perfumes",
+        promoPrice: 28.00,
+        basePrice: 33.60,
+        image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600",
+        description: "Complejo y audaz, combinando pimienta negra y blanca con notas de haba tonka y cacao."
+    },
+    {
+        id: 35,
+        name: "Asad (Lattafa)",
+        category: "perfumes",
+        promoPrice: 28.00,
+        basePrice: 33.60,
+        image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+        description: "Elegante y especiado con vainilla, tabaco, piña y café; de gran fijación nocturna."
+    },
+    {
+        id: 36,
+        name: "Art Of Universe (Lattafa)",
+        category: "perfumes",
+        promoPrice: 39.00,
+        basePrice: 46.80,
+        image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600",
+        description: "Exclusivo y exótico, con una mezcla rica de notas dulces, florales y amaderadas."
+    },
+    {
+        id: 37,
+        name: "Royal Amber (Orientica)",
+        category: "perfumes",
+        promoPrice: 30.00,
+        basePrice: 36.00,
+        image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+        description: "Oriental vainilla ambarino con notas de bergamota, melón, ámbar y almizcle."
+    },
+    {
+        id: 38,
+        name: "Ralph (Ralph Lauren)",
+        category: "perfumes",
+        promoPrice: 20.00,
+        basePrice: 24.00,
+        image: "https://images.unsplash.com/photo-1594035910387-fea47794261f?auto=format&fit=crop&q=80&w=600",
+        description: "Floral frutal juvenil y alegre con hojas de manzano japonés, mandarina y fresia."
+    },
+    {
+        id: 39,
+        name: "Asad Elixir (Lattafa)",
+        category: "perfumes",
+        promoPrice: 28.00,
+        basePrice: 33.60,
+        image: "https://images.unsplash.com/photo-1523293182086-7651a899d37f?auto=format&fit=crop&q=80&w=600",
+        description: "Versión concentrada y profunda de Asad, con acordes especiados oscuros y resinas."
+    }
+];
 
         let cart = [];
 
@@ -408,8 +711,7 @@
             message += `%0A*Zona de entrega:* Maracaibo / San Francisco`;
             message += `%0A%0APor favor, indíquenme los métodos de pago y detalles para el delivery. ¡Gracias!`;
 
-            // Replace with your real phone number (e.g., 584120000000)
-            const phoneNumber = "584120000000"; 
+            const phoneNumber = "584128237598"; 
             const url = `https://wa.me/${phoneNumber}?text=${message}`;
             
             window.open(url, '_blank');
