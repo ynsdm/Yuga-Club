@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YUGACLUB</title>
     <link rel="icon" type="image/png" href="logo.png">
-<meta property="og:title" content="YUGA CLUB - Estilo Exclusivo">
-<meta property="og:description" content="Descubre nuestra selección exclusiva de ropa urbana y perfumes en Maracaibo y San Francisco.">
-<meta property="og:image" content="https://ynsdm.github.io/Yuga-Club/logo.png">
-<meta property="og:url" content="https://ynsdm.github.io/Yuga-Club/">
-<meta property="og:type" content="website">
+    <meta property="og:title" content="YUGA CLUB - Estilo Exclusivo">
+    <meta property="og:description" content="Descubre nuestra selección exclusiva de ropa urbana y perfumes en Maracaibo y San Francisco.">
+    <meta property="og:image" content="https://ynsdm.github.io/Yuga-Club/logo.png">
+    <meta property="og:url" content="https://ynsdm.github.io/Yuga-Club/">
+    <meta property="og:type" content="website">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <!-- Google Fonts -->
@@ -39,7 +39,7 @@
             </a>
             <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-zinc-400">
                 <a href="#catalogo" class="hover:text-cyan-400 transition">Colección</a>
-                <a href="#info" class="hover:text-cyan-400 transition">Delivery & Zonas</a>
+                <a href="#info" class="hover:text-cyan-400 transition">Delivery &amp; Zonas</a>
                 <a href="#contacto" class="hover:text-cyan-400 transition">Contacto</a>
             </nav>
             <div class="flex items-center space-x-4">
@@ -94,44 +94,51 @@
 
         <!-- Products Grid -->
         <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8"></div>
+
+        <!-- Load More Button -->
+        <div id="load-more-container" class="mt-12 text-center hidden">
+            <button onclick="loadMoreProducts()" class="bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-cyan-400 hover:text-cyan-300 font-semibold px-8 py-3.5 rounded-xl transition shadow-lg">
+                Mostrar más productos <i class="fa-solid fa-arrow-down ml-2"></i>
+            </button>
+        </div>
     </main>
 
-<!-- Delivery Information Banner -->
-<section id="info" class="bg-zinc-900/50 border-y border-zinc-900 py-16 mt-12">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-3xl mx-auto mb-12">
-            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Cobertura y envíos</h2>
-            <p class="text-zinc-400 text-sm mt-2">Llegamos rápido y seguro a toda nuestra zona metropolitana.</p>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl relative overflow-hidden">
-                <div class="absolute top-0 right-0 bg-cyan-500 text-black text-xs font-bold px-3 py-1 rounded-bl-xl uppercase">Promo</div>
-                <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center text-xl mb-4">
-                    <i class="fa-solid fa-gift"></i>
-                </div>
-                <h3 class="font-bold text-lg mb-2">Delivery Gratis Fines de Semana</h3>
-                <p class="text-zinc-400 text-sm leading-relaxed">Disfruta de <strong class="text-white">envío gratis los sábados y domingos</strong> en trayectos de hasta 8 km desde nuestra base.</p>
+    <!-- Delivery Information Banner -->
+    <section id="info" class="bg-zinc-900/50 border-y border-zinc-900 py-16 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Cobertura y envíos</h2>
+                <p class="text-zinc-400 text-sm mt-2">Llegamos rápido y seguro a toda nuestra zona metropolitana.</p>
             </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-cyan-500 text-black text-xs font-bold px-3 py-1 rounded-bl-xl uppercase">Promo</div>
+                    <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-gift"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Delivery Gratis Fines de Semana</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed">Disfruta de <strong class="text-white">envío gratis los sábados y domingos</strong> en trayectos de hasta 8 km desde nuestra base.</p>
+                </div>
 
-            <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl">
-                <div class="w-12 h-12 bg-cyan-500/10 text-cyan-400 rounded-xl flex items-center justify-center text-xl mb-4">
-                    <i class="fa-solid fa-city"></i>
+                <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl">
+                    <div class="w-12 h-12 bg-cyan-500/10 text-cyan-400 rounded-xl flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-city"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Maracaibo &amp; San Francisco</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed">Realizamos entregas a domicilio en ambas localidades con motorizados seguros y confiables.</p>
                 </div>
-                <h3 class="font-bold text-lg mb-2">Maracaibo &amp; San Francisco</h3>
-                <p class="text-zinc-400 text-sm leading-relaxed">Realizamos entregas a domicilio en ambas localidades con motorizados seguros y confiables.</p>
-            </div>
-            
-            <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl relative overflow-hidden">
-                <div class="absolute top-0 right-0 bg-cyan-500 text-black text-xs font-bold px-3 py-1 rounded-bl-xl uppercase">Promo</div>
-                <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center text-xl mb-4">
-                    <i class="fa-solid fa-gift"></i>
+                
+                <div class="bg-zinc-900 border border-zinc-800 p-6 rounded-2xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-cyan-500 text-black text-xs font-bold px-3 py-1 rounded-bl-xl uppercase">Promo</div>
+                    <div class="w-12 h-12 bg-emerald-500/10 text-emerald-400 rounded-xl flex items-center justify-center text-xl mb-4">
+                        <i class="fa-solid fa-gift"></i>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">Descuentos Exclusivos</h3>
+                    <p class="text-zinc-400 text-sm leading-relaxed">Disfruta de <strong class="text-white">descuentos exclusivos</strong> para pagos en divisas y criptomonedas.</p>
                 </div>
-                <h3 class="font-bold text-lg mb-2">Descuentos Exclusivos</h3>
-                <p class="text-zinc-400 text-sm leading-relaxed">Disfruta de <strong class="text-white">descuentos exclusivos</strong> para pagos en divisas y criptomonedas.</p>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- Footer -->
     <footer id="contacto" class="bg-zinc-950 border-t border-zinc-900 py-12">
@@ -206,51 +213,52 @@
 
     <!-- JavaScript Data & Logic -->
     <script>
-        // Products database with promoPrice and basePrice
         const products = [
-{ id: 1, name: "Odyssey Candee (Armaf)", category: "perfumes", promoPrice: 0, basePrice: 0, image: "https://lh3.googleusercontent.com/d/1ERJ8pPSuxoufq4qrxl9Fl2EGiBlSeh0V", description: "Una fragancia dulce y juvenil con encantadoras notas de caramelo, frutas jugosas y vainilla, perfecta para destacar un estilo alegre, fresco y cautivador durante todo el día." },
-{ id: 2, name: "Thank U Next (Ariana Grande)", category: "perfumes", promoPrice: 26, basePrice: 31.2, image: "https://lh3.googleusercontent.com/d/108RhdRBiWKXDEdQ0JWxmszSTW20nmrnH", description: "Aroma moderno y coqueto que combina notas de frambuesa silvestre, crema de coco y pétalos de rosa sobre una base suave de azúcar moreno, ideal para un estilo dulce y audaz." },
-{ id: 3, name: "Fame (Paco Rabanne)", category: "perfumes", promoPrice: 24, basePrice: 28.8, image: "https://lh3.googleusercontent.com/d/1CsFkpnUwaZmMfEPaX5Bpc_kYHrGFse2b", description: "Fragancia vanguardista que rinde homenaje a la feminidad moderna, destacando notas principales de mango jugoso, delicado jazmín puro y un toque de incienso cremoso muy sensual." },
-{ id: 4, name: "212 VIP Rosé (Carolina Herrera)", category: "perfumes", promoPrice: 22, basePrice: 26.4, image: "https://lh3.googleusercontent.com/d/1oCSMnDXBSGpd8V_49JPdmqv4EhOC7VTf", description: "Aroma sofisticado e efervescente inspirado en la exclusividad de las mejores fiestas, con toques de champán rosado, flor de duraznero, ámbar suave y notas amaderadas elegantes." },
-{ id: 5, name: "La Vie Est Belle (Lancôme)", category: "perfumes", promoPrice: 21, basePrice: 25.2, image: "https://lh3.googleusercontent.com/d/1vUKVpFRMLRoF5887DsJyy7eu2YIxByGO", description: "Una icónica declaración de felicidad y elegancia que entrelaza la flor de azahar del naranjo, el iris pallida, el jazmín sambac y un toque gourmand irresistible de praliné y vainilla." },
-{ id: 6, name: "Cloud (Ariana Grande)", category: "perfumes", promoPrice: 26, basePrice: 31.2, image: "https://lh3.googleusercontent.com/d/1XC1hW9K34tmPCJG4N4rQ9cGU_dCGI1o9", description: "Perfume reconfortante y soñador que envuelve con matices de flor de lavanda, pera dulce, cremoso coco, praliné y un fondo cálido de orquídea de vainilla y maderas finas." },
-{ id: 7, name: "Good Girl Black (Carolina Herrera)", category: "perfumes", promoPrice: 0, basePrice: 0, image: "https://lh3.googleusercontent.com/d/1i0_AVRZaHr-9rnp9g51tuFhPlR-o5TIk", description: "Fragancia audaz y sofisticada que celebra la dualidad femenina, fusionando la luminosidad del jazmín y el nardo con la profunda sensualidad del cacao tostado y el haba tonka." },
-{ id: 8, name: "La Belle Paradise Garden (Jean Paul Gaultier)", category: "perfumes", promoPrice: 24, basePrice: 28.8, image: "https://lh3.googleusercontent.com/d/14aGO-Byl8kmyzKlKsp_0nD4g4JQB69-O", description: "Un elixir exótico y cautivador que transporta a un jardín terrenal, destacando la frescura del lirio de agua azul, la dulzura del higo silvestre y la calidez envolvente de la vainilla." },
-{ id: 9, name: "Eclaire (Lattafa)", category: "perfumes", promoPrice: 28, basePrice: 33.6, image: "https://lh3.googleusercontent.com/d/1vnkWnYlm0q8qrGbTfjhBaNgBl-iyXtVP", description: "Una deliciosa creación gourmand que deleita con sus notas de leche condensada, caramelo derretido, vainilla suave y flores blancas, ofreciendo una estela dulce, acogedora y de gran fijación." },
-{ id: 10, name: "Meow (Katy Perry)", category: "perfumes", promoPrice: 22, basePrice: 26.4, image: "https://lh3.googleusercontent.com/d/1IvBFQWnYocS2howoxc_Y2ReVJS_3vAWZ", description: "Fragancia encantadora y juguetona que despliega acordes de pera, mandarina, madreselva y lirio de los valles, sobre un fondo suave y dulce de vainilla, ámbar y almizcle." },
-{ id: 11, name: "212 VIP Gold (Carolina Herrera)", category: "perfumes", promoPrice: 22, basePrice: 26.4, image: "https://lh3.googleusercontent.com/d/1HvaAMIPF6lTMSj44q8IY88Ijc0FEBN49", description: "Perfume deslumbrante y festivo diseñado para destacar, con una mezcla magnética de ron dorado, fruta de la pasión, gardenia, haba tonka suave y notas amaderadas sofisticadas." },
-{ id: 12, name: "Victoria (Lattafa)", category: "perfumes", promoPrice: 35, basePrice: 42, image: "https://lh3.googleusercontent.com/d/1MOv2zgRS2bT8iMbe1lRp8fHnh_2lJlBZ", description: "Una fragancia sumamente elegante y refinada que equilibra florales blancos delicados con matices frutales jugosos, caramelo especiado y un fondo amaderado muy seductor." },
-{ id: 13, name: "Yara Tous (Lattafa)", category: "perfumes", promoPrice: 28, basePrice: 33.6, image: "https://lh3.googleusercontent.com/d/1lwjyZUJosvwJ9taYbOaoccu9soMUNMT6", description: "Una explosión tropical vibrante y alegre que destaca exquisitas notas de mango jugoso, maracuyá, coco cremoso, flor de azahar y una cálida base de vainilla y maderas suaves." },
-{ id: 14, name: "Yara Moi (Lattafa)", category: "perfumes", promoPrice: 22, basePrice: 26.4, image: "https://lh3.googleusercontent.com/d/1qFmGPs8H4Zjn7vxjBcPMUXyEGEs6dreD", description: "Fragancia cálida y tentadora con acordes destacados de jazmín nocturno, melocotón jugoso, caramelo, ámbar y pachulí, logrando un aroma dulce, sofisticado y envolvente." },
-{ id: 15, name: "Yara (Lattafa)", category: "perfumes", promoPrice: 28, basePrice: 33.6, image: "https://lh3.googleusercontent.com/d/1QoaUV5iT6MOyQErdRWiWpk9Lq-zmaH9_", description: "Un perfume sumamente femenino, dulce y cremoso que cautiva con notas de orquídea, heliotropo, frutas tropicales, vainilla y un toque aterciopelado de almizcle y sándalo." },
-{ id: 16, name: "Sorbetto Rosso (Escada)", category: "perfumes", promoPrice: 22, basePrice: 26.4, image: "https://lh3.googleusercontent.com/d/1hPRTo7SbhMF3wcOurkCPSAx9xYdZrfjj", description: "Aroma frutal, fresco y chispeante que evoca el verano italiano, dominado por notas de sandía jugosa, manzana roja, notas acuáticas y una brisa marina revitalizante." },
-{ id: 17, name: "Rockin' Rio (Escada)", category: "perfumes", promoPrice: 22, basePrice: 26.4, image: "https://lh3.googleusercontent.com/d/1yVlFRRGisRAplyRXC8qj3_U_f7La9oEb", description: "Una fragancia vibrante inspirada en el ambiente festivo de Río, con una deliciosa combinación frutal de papaya, piña, maracuyá, caña de azúcar y almizcle suave." },
-{ id: 18, name: "Berry On Top (Lataffa)", category: "perfumes", promoPrice: 39, basePrice: 46.8, image: "https://lh3.googleusercontent.com/d/1BcpxSWsyqc5WQhql0dXZNPYYUMZcepNt", description: "Una experiencia olfativa deliciosa que resalta la intensidad de los frutos rojos frescos, frambuesas dulces, crema batida y una base cálida de vainilla gourmand." },
-{ id: 19, name: "Sauvage (Dior)", category: "perfumes", promoPrice: 24, basePrice: 28.8, image: "https://lh3.googleusercontent.com/d/1j1rk1J4LSujfUbbPpe98OYvd7KaIU2lM", description: "Una composición rotundamente fresca y poderosa, marcada por la brillantez de la bergamota de Calabria, la pimienta de Sichuan y la profundidad amaderada del ambroxan." },
-{ id: 20, name: "CH Men (Carolina Herrera)", category: "perfumes", promoPrice: 22, basePrice: 26.4, image: "https://lh3.googleusercontent.com/d/1kclR9XEtCjIEbbnCJOYzs7AuqyiowOXv", description: "Un clásico aroma masculino que representa un viaje sensorial, combinando cuero elegante, madera de cachemira, bergamota fresca, azafrán, nuez moscada y un sutil toque dulce." },
-{ id: 21, name: "Starwalker (Montblanc)", category: "perfumes", promoPrice: 20, basePrice: 24, image: "https://lh3.googleusercontent.com/d/1O_oQWGJSo9MXWH6njwhl9fAPWrFVI9QN", description: "Aroma limpio, fresco y revitalizante que combina notas de bambú, bergamota y jengibre especiado con un fondo suave de madera de cedro, sándalo y almizcle." },
-{ id: 22, name: "Phantom (Paco Rabanne)", category: "perfumes", promoPrice: 24, basePrice: 28.8, image: "https://lh3.googleusercontent.com/d/1cNxFmcCa_1AG3F2wcwqnm0rGsOP_n5pV", description: "Fragancia moderna y futurista que mezcla la frescura energizante del limón con lavanda cremoso, vetiver y una dosis reconfortante de vainilla dulzona." },
-{ id: 23, name: "Emblem (Montblanc)", category: "perfumes", promoPrice: 20, basePrice: 24, image: "https://lh3.googleusercontent.com/d/11B_AqMb-t43_VqCTAOOF2TAkqzOcHN3p", description: "Perfume distinguido y carismático que abre con pomelo amargo, clavo y salvia, abriendo paso a un corazón especiado de canela y una base rica de maderas oscuras." },
-{ id: 24, name: "Club de Nuit Lionheart (Armaf)", category: "perfumes", promoPrice: 35, basePrice: 42, image: "https://lh3.googleusercontent.com/d/122dBrqSTeLzUUB30c0iCLCH6yyUe181n", description: "Una propuesta intensa y seductora que combina acordes cítricos chispeantes con un corazón de especias cálidas, maderas nobles, ámbar y notas de cuero suave." },
-{ id: 25, name: "Khamrah Dukhan (Lattafa)", category: "perfumes", promoPrice: 36, basePrice: 43.2, image: "https://lh3.googleusercontent.com/d/17RQiCZbQiOpx3lyGtpKe9Zn9X6ZNeNh8", description: "Fragancia oriental cálida, rica y misteriosa con toques de canela, nuez moscada, praliné, madera ahumada, mirra y una intensa base de vainilla y ámbar." },
-{ id: 26, name: "Odyssey Tyrant (Armaf)", category: "perfumes", promoPrice: 28, basePrice: 33.6, image: "https://lh3.googleusercontent.com/d/1CO7nPRgN_UAMQ5Nmg0dWCROvI1BMA28r", description: "Aroma vigorizante y masculino que destaca por su apertura de cítricos frescos y manzana, evolucionando con especias aromáticas, lavanda y una base firme de madera de cedro." },
-{ id: 27, name: "Odyssey Oud (Armaf)", category: "perfumes", promoPrice: 28, basePrice: 33.6, image: "https://lh3.googleusercontent.com/d/1ZXvRRdMC6NZ8t9g2WfNug0g10o52KyYH", description: "Una creación rica y lujosa donde el oud majestuoso es el protagonista, complementado por toques de especias cálidas, rosa, ámbar dorado y maderas preciosas." },
-{ id: 28, name: "Swiss Army Classic (Victorinox)", category: "perfumes", promoPrice: 22, basePrice: 26.4, image: "https://lh3.googleusercontent.com/d/1PSzXAeYQaqlejs8ceP-SCs9ntS8OMv1s", description: "Aroma icónico, fresco y auténtico que captura la esencia de las montañas alpinas mediante notas de menta fresca, bergamota, lavanda, romero y maderas nobles." },
-{ id: 29, name: "212 VIP Men (Carolina Herrera)", category: "perfumes", promoPrice: 22, basePrice: 26.4, image: "https://lh3.googleusercontent.com/d/1WPQDBC2GlhTWrEwy3iJ-jancpdCcmnBk", description: "Fragancia nocturna y electrizante que fusiona notas de lima ácida, caviar, menta congelada, vodka, pimienta negra y una base de madera de rey." },
-{ id: 30, name: "Club de Nuit Intense Man (Armaf)", category: "perfumes", promoPrice: 0, basePrice: 0, image: "https://lh3.googleusercontent.com/d/1R4uui58uNgbZoAQa6VKb4oJ2M4LAmfRR", description: "Aroma potente y legendario que abre con limón, piña y grosellas negras, dando paso a un corazón ahumado de abedul, jazmín y una duradera base de almizcle." },
-{ id: 31, name: "Invictus (Paco Rabanne)", category: "perfumes", promoPrice: 20, basePrice: 24, image: "https://lh3.googleusercontent.com/d/19rvOGTQY9Si_QM_FnNQxnLTYUkT1g9MI", description: "Fragancia heroica y triunfadora que combina la frescura marina de las notas acuáticas y la toronja con la calidez del laurel, madera de guayaco y ámbar gris." },
-{ id: 32, name: "Oud for Glory (Lattafa)", category: "perfumes", promoPrice: 28, basePrice: 33.6, image: "https://lh3.googleusercontent.com/d/1P2tEvHPa46bHgWOK--YQw5BXknIz9jEd", description: "Perfume opulento y místico con una prominente nota de madera de agar (oud), azafrán fino, nuez moscada, lavanda y un fondo profundo de pachulí." },
-{ id: 33, name: "Bharara Blue (Bharara)", category: "perfumes", promoPrice: 28, basePrice: 33.6, image: "https://lh3.googleusercontent.com/d/1agConzG-3Zk8PwDTjjpzFItqwEGytvG8", description: "Una fragancia refrescante y duradera con acordes cítricos vibrantes, frutas maduras, notas aromáticas y una base amaderada suave de ámbar y almizcle refinado." },
-{ id: 34, name: "Bad Boy (Carolina Herrera)", category: "perfumes", promoPrice: 28, basePrice: 33.6, image: "https://lh3.googleusercontent.com/d/1kk5A0F4vznV4EZGPm0Z6IXiTbU8GQnVV", description: "Fragancia sofisticada que contrasta la pimienta blanca y negra con la frescura de la bergamota, evolucionando hacia notas de cedro, salvia, haba tonka y cacao." },
-{ id: 35, name: "Asad (Lattafa)", category: "perfumes", promoPrice: 28, basePrice: 33.6, image: "https://lh3.googleusercontent.com/d/154AkeQQbxaQpW6eZo2ATTmgJrZGBpCmo", description: "Un aroma masculino impactante que despliega notas de pimienta negra, piña, café, iris especiado, pachulí, ámbar seco y una dominante vainilla cálida." },
-{ id: 36, name: "Art Of Universe (Lattafa)", category: "perfumes", promoPrice: 39, basePrice: 46.8, image: "https://lh3.googleusercontent.com/d/1rZLZ5Ae_MoXEtD1zl_hUIk2tLIomxrCO", description: "Fragancia contemporánea que ofrece un viaje olfativo fresco y amaderado, mezclando notas cítricas con un corazón aromático y un fondo de ámbar y resinas profundas." },
-{ id: 37, name: "Royal Amber (Orientica)", category: "perfumes", promoPrice: 30, basePrice: 36, image: "https://lh3.googleusercontent.com/d/1TH3jfzqKbAcuUMJ1FR-HmTd82VPDLP5v", description: "Despliega una sofisticación deslumbrante: notas cítricas y especiadas sobre un corazón voluptuoso de ámbar, envuelto en maderas finas y resinas de lujo eterno." },
-{ id: 38, name: "Ralph (Ralph Laurent)", category: "perfumes", promoPrice: 20, basePrice: 24, image: "https://lh3.googleusercontent.com/d/12aJk3AAojRSHpkKkgFovLD8ToIGP06hr", description: "Un estallido de frescura acuática y vibrante: notas de melón y mandarina que abren paso a un corazón aromático de albahaca, sobre una base elegante de gamuza, almizcle y maderas." },
-{ id: 39, name: "Asad Elixir (Lataffa)", category: "perfumes", promoPrice: 28, basePrice: 33.6, image: "https://lh3.googleusercontent.com/d/1XnW6U50M571S3VyvPMAJ-uZtz_EUNInV", description: "Desata una intensidad magnética: especias cálidas y lavanda cremosa que se funden en un fondo profundo de vainilla, maderas oscuras y un ámbar totalmente adictivo." }
+            { id: 1, name: "Odyssey Candee (Armaf)", category: "perfumes", promoPrice: 0, basePrice: 0, image: "https://lh3.googleusercontent.com/d/1ERJ8pPSuxoufq4qrxl9Fl2EGiBlSeh0V", description: "Una fragancia dulce y juvenil con encantadoras notas de caramelo, frutas jugosas y vainilla, perfecta para destacar un estilo alegre, fresco y cautivador durante todo el día." },
+            { id: 2, name: "Thank U Next (Ariana Grande)", category: "perfumes", promoPrice: 26, basePrice: 31.2, image: "https://lh3.googleusercontent.com/d/108RhdRBiWKXDEdQ0JWxmszSTW20nmrnH", description: "Aroma moderno y coqueto que combina notas de frambuesa silvestre, crema de coco y pétalos de rosa sobre una base suave de azúcar moreno, ideal para un estilo dulce y audaz." },
+            { id: 3, name: "Fame (Paco Rabanne)", category: "perfumes", promoPrice: 24, basePrice: 28.8, image: "https://lh3.googleusercontent.com/d/1CsFkpnUwaZmMfEPaX5Bpc_kYHrGFse2b", description: "Fragancia vanguardista que rinde homenaje a la feminidad moderna, destacando notas principales de mango jugoso, delicado jazmín puro y un toque de incienso cremoso muy sensual." },
+            { id: 4, name: "212 VIP Rosé (Carolina Herrera)", category: "perfumes", promoPrice: 22, basePrice: 26.4, image: "https://lh3.googleusercontent.com/d/1oCSMnDXBSGpd8V_49JPdmqv4EhOC7VTf", description: "Aroma sofisticado e efervescente inspirado en la exclusividad de las mejores fiestas, con toques de champán rosado, flor de duraznero, ámbar suave y notas amaderadas elegantes." },
+            { id: 5, name: "La Vie Est Belle (Lancôme)", category: "perfumes", promoPrice: 21, basePrice: 25.2, image: "https://lh3.googleusercontent.com/d/1vUKVpFRMLRoF5887DsJyy7eu2YIxByGO", description: "Una icónica declaración de felicidad y elegancia que entrelaza la flor de azahar del naranjo, el iris pallida, el jazmín sambac y un toque gourmand irresistible de praliné y vainilla." },
+            { id: 6, name: "Cloud (Ariana Grande)", category: "perfumes", promoPrice: 26, basePrice: 31.2, image: "https://lh3.googleusercontent.com/d/1XC1hW9K34tmPCJG4N4rQ9cGU_dCGI1o9", description: "Perfume reconfortante y soñador que envuelve con matices de flor de lavanda, pera dulce, cremoso coco, praliné y un fondo cálido de orquídea de vainilla y maderas finas." },
+            { id: 7, name: "Good Girl Black (Carolina Herrera)", category: "perfumes", promoPrice: 0, basePrice: 0, image: "https://lh3.googleusercontent.com/d/1i0_AVRZaHr-9rnp9g51tuFhPlR-o5TIk", description: "Fragancia audaz y sofisticada que celebra la dualidad femenina, fusionando la luminosidad del jazmín y el nardo con la profunda sensualidad del cacao tostado y el haba tonka." },
+            { id: 8, name: "La Belle Paradise Garden (Jean Paul Gaultier)", category: "perfumes", promoPrice: 24, basePrice: 28.8, image: "https://lh3.googleusercontent.com/d/14aGO-Byl8kmyzKlKsp_0nD4g4JQB69-O", description: "Un elixir exótico y cautivador que transporta a un jardín terrenal, destacando la frescura del lirio de agua azul, la dulzura del higo silvestre y la calidez envolvente de la vainilla." },
+            { id: 9, name: "Eclaire (Lattafa)", category: "perfumes", promoPrice: 28, basePrice: 33.6, image: "https://lh3.googleusercontent.com/d/1vnkWnYlm0q8qrGbTfjhBaNgBl-iyXtVP", description: "Una deliciosa creación gourmand que deleita con sus notas de leche condensada, caramelo derretido, vainilla suave y flores blancas, ofreciendo una estela dulce, acogedora y de gran fijación." },
+            { id: 10, name: "Meow (Katy Perry)", category: "perfumes", promoPrice: 22, basePrice: 26.4, image: "https://lh3.googleusercontent.com/d/1IvBFQWnYocS2howoxc_Y2ReVJS_3vAWZ", description: "Fragancia encantadora y juguetona que despliega acordes de pera, mandarina, madreselva y lirio de los valles, sobre un fondo suave y dulce de vainilla, ámbar y almizcle." },
+            { id: 11, name: "212 VIP Gold (Carolina Herrera)", category: "perfumes", promoPrice: 22, basePrice: 26.4, image: "https://lh3.googleusercontent.com/d/1HvaAMIPF6lTMSj44q8IY88Ijc0FEBN49", description: "Perfume deslumbrante y festivo diseñado para destacar, con una mezcla magnética de ron dorado, fruta de la pasión, gardenia, haba tonka suave y notas amaderadas sofisticadas." },
+            { id: 12, name: "Victoria (Lattafa)", category: "perfumes", promoPrice: 35, basePrice: 42, image: "https://lh3.googleusercontent.com/d/1MOv2zgRS2bT8iMbe1lRp8fHnh_2lJlBZ", description: "Una fragancia sumamente elegante y refinada que equilibra florales blancos delicados con matices frutales jugosos, caramelo especiado y un fondo amaderado muy seductor." },
+            { id: 13, name: "Yara Tous (Lattafa)", category: "perfumes", promoPrice: 28, basePrice: 33.6, image: "https://lh3.googleusercontent.com/d/1lwjyZUJosvwJ9taYbOaoccu9soMUNMT6", description: "Una explosión tropical vibrante y alegre que destaca exquisitas notas de mango jugoso, maracuyá, coco cremoso, flor de azahar y una cálida base de vainilla y maderas suaves." },
+            { id: 14, name: "Yara Moi (Lattafa)", category: "perfumes", promoPrice: 22, basePrice: 26.4, image: "https://lh3.googleusercontent.com/d/1qFmGPs8H4Zjn7vxjBcPMUXyEGEs6dreD", description: "Fragancia cálida y tentadora con acordes destacados de jazmín nocturno, melocotón jugoso, caramelo, ámbar y pachulí, logrando un aroma dulce, sofisticado y envolvente." },
+            { id: 15, name: "Yara (Lattafa)", category: "perfumes", promoPrice: 28, basePrice: 33.6, image: "https://lh3.googleusercontent.com/d/1QoaUV5iT6MOyQErdRWiWpk9Lq-zmaH9_", description: "Un perfume sumamente femenino, dulce y cremoso que cautiva con notas de orquídea, heliotropo, frutas tropicales, vainilla y un toque aterciopelado de almizcle y sándalo." },
+            { id: 16, name: "Sorbetto Rosso (Escada)", category: "perfumes", promoPrice: 22, basePrice: 26.4, image: "https://lh3.googleusercontent.com/d/1hPRTo7SbhMF3wcOurkCPSAx9xYdZrfjj", description: "Aroma frutal, fresco y chispeante que evoca el verano italiano, dominado por notas de sandía jugosa, manzana roja, notas acuáticas y una brisa marina revitalizante." },
+            { id: 17, name: "Rockin' Rio (Escada)", category: "perfumes", promoPrice: 22, basePrice: 26.4, image: "https://lh3.googleusercontent.com/d/1yVlFRRGisRAplyRXC8qj3_U_f7La9oEb", description: "Una fragancia vibrante inspirada en el ambiente festivo de Río, con una deliciosa combinación frutal de papaya, piña, maracuyá, caña de azúcar y almizcle suave." },
+            { id: 18, name: "Berry On Top (Lataffa)", category: "perfumes", promoPrice: 39, basePrice: 46.8, image: "https://lh3.googleusercontent.com/d/1BcpxSWsyqc5WQhql0dXZNPYYUMZcepNt", description: "Una experiencia olfativa deliciosa que resalta la intensidad de los frutos rojos frescos, frambuesas dulces, crema batida y una base cálida de vainilla gourmand." },
+            { id: 19, name: "Sauvage (Dior)", category: "perfumes", promoPrice: 24, basePrice: 28.8, image: "https://lh3.googleusercontent.com/d/1j1rk1J4LSujfUbbPpe98OYvd7KaIU2lM", description: "Una composición rotundamente fresca y poderosa, marcada por la brillantez de la bergamota de Calabria, la pimienta de Sichuan y la profundidad amaderada del ambroxan." },
+            { id: 20, name: "CH Men (Carolina Herrera)", category: "perfumes", promoPrice: 22, basePrice: 26.4, image: "https://lh3.googleusercontent.com/d/1kclR9XEtCjIEbbnCJOYzs7AuqyiowOXv", description: "Un clásico aroma masculino que representa un viaje sensorial, combinando cuero elegante, madera de cachemira, bergamota fresca, azafrán, nuez moscada y un sutil toque dulce." },
+            { id: 21, name: "Starwalker (Montblanc)", category: "perfumes", promoPrice: 20, basePrice: 24, image: "https://lh3.googleusercontent.com/d/1O_oQWGJSo9MXWH6njwhl9fAPWrFVI9QN", description: "Aroma limpio, fresco y revitalizante que combina notas de bambú, bergamota y jengibre especiado con un fondo suave de madera de cedro, sándalo y almizcle." },
+            { id: 22, name: "Phantom (Paco Rabanne)", category: "perfumes", promoPrice: 24, basePrice: 28.8, image: "https://lh3.googleusercontent.com/d/1cNxFmcCa_1AG3F2wcwqnm0rGsOP_n5pV", description: "Fragancia moderna y futurista que mezcla la frescura energizante del limón con lavanda cremoso, vetiver y una dosis reconfortante de vainilla dulzona." },
+            { id: 23, name: "Emblem (Montblanc)", category: "perfumes", promoPrice: 20, basePrice: 24, image: "https://lh3.googleusercontent.com/d/11B_AqMb-t43_VqCTAOOF2TAkqzOcHN3p", description: "Perfume distinguido y carismático que abre con pomelo amargo, clavo y salvia, abriendo paso a un corazón especiado de canela y una base rica de maderas oscuras." },
+            { id: 24, name: "Club de Nuit Lionheart (Armaf)", category: "perfumes", promoPrice: 35, basePrice: 42, image: "https://lh3.googleusercontent.com/d/122dBrqSTeLzUUB30c0iCLCH6yyUe181n", description: "Una propuesta intensa y seductora que combina acordes cítricos chispeantes con un corazón de especias cálidas, maderas nobles, ámbar y notas de cuero suave." },
+            { id: 25, name: "Khamrah Dukhan (Lattafa)", category: "perfumes", promoPrice: 36, basePrice: 43.2, image: "https://lh3.googleusercontent.com/d/17RQiCZbQiOpx3lyGtpKe9Zn9X6ZNeNh8", description: "Fragancia oriental cálida, rica y misteriosa con toques de canela, nuez moscada, praliné, madera ahumada, mirra y una intensa base de vainilla y ámbar." },
+            { id: 26, name: "Odyssey Tyrant (Armaf)", category: "perfumes", promoPrice: 28, basePrice: 33.6, image: "https://lh3.googleusercontent.com/d/1CO7nPRgN_UAMQ5Nmg0dWCROvI1BMA28r", description: "Aroma vigorizante y masculino que destaca por su apertura de cítricos frescos y manzana, evolucionando con especias aromáticas, lavanda y una base firme de madera de cedro." },
+            { id: 27, name: "Odyssey Oud (Armaf)", category: "perfumes", promoPrice: 28, basePrice: 33.6, image: "https://lh3.googleusercontent.com/d/1ZXvRRdMC6NZ8t9g2WfNug0g10o52KyYH", description: "Una creación rica y lujosa donde el oud majestuoso es el protagonista, complementado por toques de especias cálidas, rosa, ámbar dorado y maderas preciosas." },
+            { id: 28, name: "Swiss Army Classic (Victorinox)", category: "perfumes", promoPrice: 22, basePrice: 26.4, image: "https://lh3.googleusercontent.com/d/1PSzXAeYQaqlejs8ceP-SCs9ntS8OMv1s", description: "Aroma icónico, fresco y auténtico que captura la esencia de las montañas alpinas mediante notas de menta fresca, bergamota, lavanda, romero y maderas nobles." },
+            { id: 29, name: "212 VIP Men (Carolina Herrera)", category: "perfumes", promoPrice: 22, basePrice: 26.4, image: "https://lh3.googleusercontent.com/d/1WPQDBC2GlhTWrEwy3iJ-jancpdCcmnBk", description: "Fragancia nocturna y electrizante que fusiona notas de lima ácida, caviar, menta congelada, vodka, pimienta negra y una base de madera de rey." },
+            { id: 30, name: "Club de Nuit Intense Man (Armaf)", category: "perfumes", promoPrice: 0, basePrice: 0, image: "https://lh3.googleusercontent.com/d/1R4uui58uNgbZoAQa6VKb4oJ2M4LAmfRR", description: "Aroma potente y legendario que abre con limón, piña y grosellas negras, dando paso a un corazón ahumado de abedul, jazmín y una duradera base de almizcle." },
+            { id: 31, name: "Invictus (Paco Rabanne)", category: "perfumes", promoPrice: 20, basePrice: 24, image: "https://lh3.googleusercontent.com/d/19rvOGTQY9Si_QM_FnNQxnLTYUkT1g9MI", description: "Fragancia heroica y triunfadora que combina la frescura marina de las notas acuáticas y la toronja con la calidez del laurel, madera de guayaco y ámbar gris." },
+            { id: 32, name: "Oud for Glory (Lattafa)", category: "perfumes", promoPrice: 28, basePrice: 33.6, image: "https://lh3.googleusercontent.com/d/1P2tEvHPa46bHgWOK--YQw5BXknIz9jEd", description: "Perfume opulento y místico con una prominente nota de madera de agar (oud), azafrán fino, nuez moscada, lavanda y un fondo profundo de pachulí." },
+            { id: 33, name: "Bharara Blue (Bharara)", category: "perfumes", promoPrice: 28, basePrice: 33.6, image: "https://lh3.googleusercontent.com/d/1agConzG-3Zk8PwDTjjpzFItqwEGytvG8", description: "Una fragancia refrescante y duradera con acordes cítricos vibrantes, frutas maduras, notas aromáticas y una base amaderada suave de ámbar y almizcle refinado." },
+            { id: 34, name: "Bad Boy (Carolina Herrera)", category: "perfumes", promoPrice: 28, basePrice: 33.6, image: "https://lh3.googleusercontent.com/d/1kk5A0F4vznV4EZGPm0Z6IXiTbU8GQnVV", description: "Fragancia sofisticada que contrasta la pimienta blanca y negra con la frescura de la bergamota, evolucionando hacia notas de cedro, salvia, haba tonka y cacao." },
+            { id: 35, name: "Asad (Lattafa)", category: "perfumes", promoPrice: 28, basePrice: 33.6, image: "https://lh3.googleusercontent.com/d/154AkeQQbxaQpW6eZo2ATTmgJrZGBpCmo", description: "Un aroma masculino impactante que despliega notas de pimienta negra, piña, café, iris especiado, pachulí, ámbar seco y una dominante vainilla cálida." },
+            { id: 36, name: "Art Of Universe (Lattafa)", category: "perfumes", promoPrice: 39, basePrice: 46.8, image: "https://lh3.googleusercontent.com/d/1rZLZ5Ae_MoXEtD1zl_hUIk2tLIomxrCO", description: "Fragancia contemporánea que ofrece un viaje olfativo fresco y amaderado, mezclando notas cítricas con un corazón aromático y un fondo de ámbar y resinas profundas." },
+            { id: 37, name: "Royal Amber (Orientica)", category: "perfumes", promoPrice: 30, basePrice: 36, image: "https://lh3.googleusercontent.com/d/1TH3jfzqKbAcuUMJ1FR-HmTd82VPDLP5v", description: "Despliega una sofisticación deslumbrante: notas cítricas y especiadas sobre un corazón voluptuoso de ámbar, envuelto en maderas finas y resinas de lujo eterno." },
+            { id: 38, name: "Ralph (Ralph Laurent)", category: "perfumes", promoPrice: 20, basePrice: 24, image: "https://lh3.googleusercontent.com/d/12aJk3AAojRSHpkKkgFovLD8ToIGP06hr", description: "Un estallido de frescura acuática y vibrante: notas de melón y mandarina que abren paso a un corazón aromático de albahaca, sobre una base elegante de gamuza, almizcle y maderas." },
+            { id: 39, name: "Asad Elixir (Lataffa)", category: "perfumes", promoPrice: 28, basePrice: 33.6, image: "https://lh3.googleusercontent.com/d/1XnW6U50M571S3VyvPMAJ-uZtz_EUNInV", description: "Desata una intensidad magnética: especias cálidas y lavanda cremosa que se funden en un fondo profundo de vainilla, maderas oscuras y un ámbar totalmente adictivo." }
         ];
 
         let cart = [];
-        let paymentType = 'promo'; // 'promo' (divisas) por defecto
+        let paymentType = 'promo';
+        let displayedCount = 9;
+        let currentCategory = 'all';
 
         function setPaymentType(type) {
             paymentType = type;
@@ -267,29 +275,41 @@
             updateCartUI();
         }
 
-        function renderProducts(categoryFilter = 'all') {
+        function renderProducts(categoryFilter = 'all', reset = false) {
+            if (reset) {
+                displayedCount = 9;
+                currentCategory = categoryFilter;
+            }
+
             const grid = document.getElementById('product-grid');
+            const loadMoreContainer = document.getElementById('load-more-container');
             grid.innerHTML = '';
 
-            const filtered = categoryFilter === 'all' 
+            const filtered = currentCategory === 'all' 
                 ? products 
-                : products.filter(p => p.category === categoryFilter);
+                : products.filter(p => p.category === currentCategory);
+
+            const productsToShow = filtered.slice(0, displayedCount);
 
             if (filtered.length === 0) {
                 grid.innerHTML = `<p class="col-span-full text-center text-zinc-500 py-12">No hay productos en esta categoría por ahora.</p>`;
+                loadMoreContainer.classList.add('hidden');
                 return;
             }
 
-            filtered.forEach(product => {
+            productsToShow.forEach(product => {
+                const isAgotado = product.promoPrice === 0;
                 const card = document.createElement('div');
-                card.className = "bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden group hover:border-cyan-500/50 transition flex flex-col justify-between";
+                card.className = `bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden group transition flex flex-col justify-between ${isAgotado ? 'opacity-75' : 'hover:border-cyan-500/50'}`;
+                
                 card.innerHTML = `
                     <div>
                         <div class="relative overflow-hidden aspect-square bg-zinc-950">
-                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 ${isAgotado ? 'grayscale' : ''}">
                             <span class="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-cyan-400 text-xs font-semibold px-2.5 py-1 rounded-lg uppercase tracking-wider">
                                 ${product.category}
                             </span>
+                            ${isAgotado ? '<span class="absolute top-3 right-3 bg-rose-500 text-white text-xs font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-lg">Agotado</span>' : ''}
                         </div>
                         <div class="p-5">
                             <h3 class="font-bold text-lg text-white mb-1">${product.name}</h3>
@@ -298,20 +318,36 @@
                     </div>
                     <div class="p-5 pt-0 flex items-center justify-between">
                         <div>
-                            <div class="flex items-baseline space-x-2">
-                                <span class="text-xl font-extrabold text-cyan-400">$${product.promoPrice.toFixed(2)}</span>
-                                <span class="text-xs text-zinc-500 line-through">$${product.basePrice.toFixed(2)}</span>
-                            </div>
-                            <span class="text-[10px] text-zinc-400 uppercase tracking-wider">Precio Divisas (Promo)</span>
+                            ${isAgotado ? `
+                                <span class="text-sm font-bold text-rose-400">No disponible</span>
+                            ` : `
+                                <div class="flex items-baseline space-x-2">
+                                    <span class="text-xl font-extrabold text-cyan-400">$${product.promoPrice.toFixed(2)}</span>
+                                    <span class="text-xs text-zinc-500 line-through">$${product.basePrice.toFixed(2)}</span>
+                                </div>
+                                <span class="text-[10px] text-zinc-400 uppercase tracking-wider">Precio Divisas (Promo)</span>
+                            `}
                         </div>
-                        <button onclick="addToCart(${product.id})" class="bg-zinc-800 hover:bg-cyan-500 hover:text-black text-white px-4 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2">
-                            <i class="fa-solid fa-plus"></i>
-                            <span>Agregar</span>
+                        <button onclick="addToCart(${product.id})" ${isAgotado ? 'disabled' : ''} class="${isAgotado ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed' : 'bg-zinc-800 hover:bg-cyan-500 hover:text-black text-white'} px-4 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2">
+                            <i class="fa-solid ${isAgotado ? 'fa-ban' : 'fa-plus'}"></i>
+                            <span>${isAgotado ? 'Agotado' : 'Agregar'}</span>
                         </button>
                     </div>
                 `;
                 grid.appendChild(card);
             });
+
+            // Control visibility of "Load More" button
+            if (displayedCount < filtered.length) {
+                loadMoreContainer.classList.remove('hidden');
+            } else {
+                loadMoreContainer.classList.add('hidden');
+            }
+        }
+
+        function loadMoreProducts() {
+            displayedCount += 9;
+            renderProducts(currentCategory, false);
         }
 
         function filterProducts(category) {
@@ -320,7 +356,7 @@
             });
             event.target.className = "filter-btn active-filter px-4 py-2 rounded-xl text-sm font-semibold bg-cyan-500 text-black transition shadow-lg shadow-cyan-500/20";
             
-            renderProducts(category);
+            renderProducts(category, true);
         }
 
         function toggleCart() {
@@ -330,6 +366,12 @@
 
         function addToCart(productId) {
             const product = products.find(p => p.id === productId);
+            
+            if (!product || product.promoPrice === 0) {
+                alert("Este producto se encuentra agotado temporalmente.");
+                return;
+            }
+
             const existing = cart.find(item => item.id === productId);
 
             if (existing) {
@@ -379,7 +421,6 @@
             let subtotal = 0;
 
             cart.forEach(item => {
-                // Selecciona el precio activo según la modalidad de pago elegida
                 const activePrice = paymentType === 'promo' ? item.promoPrice : item.basePrice;
                 subtotal += activePrice * item.quantity;
 
@@ -435,7 +476,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            renderProducts('all');
+            renderProducts('all', true);
         });
     </script>
 </body>
