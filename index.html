@@ -109,6 +109,50 @@
         </div>
     </main>
 
+    <!-- Product Detail Modal -->
+    <div id="product-modal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4 transition-all">
+        <div class="bg-zinc-900 border border-zinc-800 w-full max-w-2xl rounded-2xl overflow-hidden shadow-2xl relative flex flex-col md:flex-row max-h-[90vh]">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 bg-black/60 hover:bg-black text-white w-9 h-9 rounded-full flex items-center justify-center transition">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            
+            <!-- Modal Image Gallery / Switcher -->
+            <div class="md:w-1/2 bg-zinc-950 p-6 flex flex-col items-center justify-center relative">
+                <div class="relative w-full aspect-square overflow-hidden rounded-xl bg-zinc-900">
+                    <img id="modal-img" src="" alt="Imagen del producto" class="w-full h-full object-cover transition duration-300">
+                </div>
+                <!-- Mini image switcher buttons -->
+                <div class="flex space-x-3 mt-4" id="modal-thumbnails">
+                    <button onclick="switchModalImage(0)" id="thumb-0" class="w-14 h-14 rounded-lg overflow-hidden border-2 border-cyan-500 focus:outline-none">
+                        <img id="thumb-img-0" src="" class="w-full h-full object-cover">
+                    </button>
+                    <button onclick="switchModalImage(1)" id="thumb-1" class="w-14 h-14 rounded-lg overflow-hidden border-2 border-transparent opacity-70 hover:opacity-100 focus:outline-none">
+                        <img id="thumb-img-1" src="" class="w-full h-full object-cover">
+                    </button>
+                </div>
+            </div>
+
+            <!-- Modal Content Info -->
+            <div class="md:w-1/2 p-6 flex flex-col justify-between overflow-y-auto">
+                <div>
+                    <span id="modal-category" class="inline-block bg-zinc-800 text-cyan-400 text-xs font-semibold px-2.5 py-1 rounded-lg uppercase tracking-wider mb-3"></span>
+                    <h3 id="modal-title" class="text-2xl font-bold text-white mb-2"></h3>
+                    <div id="modal-price-container" class="flex items-baseline space-x-3 mb-4">
+                        <span id="modal-promo-price" class="text-2xl font-extrabold text-cyan-400"></span>
+                        <span id="modal-base-price" class="text-sm text-zinc-500 line-through"></span>
+                    </div>
+                    <p id="modal-description" class="text-zinc-400 text-sm leading-relaxed mb-6"></p>
+                    <div id="modal-stock-badge" class="mb-6"></div>
+                </div>
+
+                <button id="modal-add-btn" onclick="" class="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-bold py-3.5 rounded-xl transition flex items-center justify-center space-x-2 shadow-lg shadow-cyan-500/20">
+                    <i class="fa-solid fa-bag-shopping"></i>
+                    <span>Agregar al Carrito</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Delivery Information Banner -->
     <section id="info" class="bg-zinc-900/50 border-y border-zinc-900 py-16 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -227,6 +271,9 @@
         let displayedCount = 9;
         let currentCategory = 'all';
 
+        // Variable global para almacenar las 2 imágenes actuales dentro del modal
+        let currentModalImages = [];
+
         async function fetchProductsFromSheet() {
             try {
                 const response = await fetch(SCRIPT_URL);
@@ -240,6 +287,8 @@
                     basePrice: Number(item.basePrice || 0),
                     stock: Number(item.stock || 0), // <--- Control de inventario desde Google Sheets
                     image: String(item.image || ''),
+                    // Segunda imagen opcional provista desde la hoja o calculada por defecto
+                    secondImage: String(item.secondImage || item.image || ''),
                     description: String(item.description || '')
                 }));
 
@@ -292,13 +341,12 @@
             }
 
             productsToShow.forEach(product => {
-                // Se considera agotado si el stock es menor o igual a 0 o si el precio es 0
                 const isAgotado = product.stock <= 0 || product.promoPrice <= 0;
                 const card = document.createElement('div');
                 card.className = `bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden group transition flex flex-col justify-between ${isAgotado ? 'opacity-75' : 'hover:border-cyan-500/50'}`;
                 
                 card.innerHTML = `
-                    <div>
+                    <div class="cursor-pointer" onclick="openProductModal(${product.id})">
                         <div class="relative overflow-hidden aspect-square bg-zinc-950">
                             <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 ${isAgotado ? 'grayscale' : ''}">
                             <span class="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-cyan-400 text-xs font-semibold px-2.5 py-1 rounded-lg uppercase tracking-wider">
@@ -307,11 +355,11 @@
                             ${isAgotado ? '<span class="absolute top-3 right-3 bg-rose-500 text-white text-xs font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-lg">Agotado</span>' : `<span class="absolute top-3 right-3 bg-emerald-500/80 backdrop-blur-md text-black font-bold text-[10px] px-2 py-0.5 rounded-lg">Stock: ${product.stock}</span>`}
                         </div>
                         <div class="p-5">
-                            <h3 class="font-bold text-lg text-white mb-1">${product.name}</h3>
+                            <h3 class="font-bold text-lg text-white mb-1 hover:text-cyan-400 transition">${product.name}</h3>
                             <p class="text-zinc-400 text-xs line-clamp-2 mb-4">${product.description}</p>
                         </div>
                     </div>
-                    <div class="p-5 pt-0 flex items-center justify-between">
+                    <div class="p-5 pt-0 flex items-center justify-between border-t border-zinc-800/40 mt-auto">
                         <div>
                             ${isAgotado ? `
                                 <span class="text-sm font-bold text-rose-400">No disponible</span>
@@ -336,6 +384,70 @@
                 loadMoreContainer.classList.remove('hidden');
             } else {
                 loadMoreContainer.classList.add('hidden');
+            }
+        }
+
+        function openProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            // Definir las dos urls de imagen (la principal y una segunda url personalizada o fallback)
+            currentModalImages = [product.image, product.secondImage || product.image];
+
+            document.getElementById('modal-img').src = currentModalImages[0];
+            document.getElementById('thumb-img-0').src = currentModalImages[0];
+            document.getElementById('thumb-img-1').src = currentModalImages[1];
+
+            document.getElementById('modal-category').textContent = product.category;
+            document.getElementById('modal-title').textContent = product.name;
+            document.getElementById('modal-description').textContent = product.description;
+
+            const isAgotado = product.stock <= 0 || product.promoPrice <= 0;
+            const priceContainer = document.getElementById('modal-price-container');
+            const stockBadge = document.getElementById('modal-stock-badge');
+            const addBtn = document.getElementById('modal-add-btn');
+
+            if (isAgotado) {
+                priceContainer.innerHTML = `<span class="text-xl font-bold text-rose-400">No disponible</span>`;
+                stockBadge.innerHTML = `<span class="bg-rose-500/20 text-rose-400 text-xs px-3 py-1 rounded-lg font-semibold">Agotado</span>`;
+                addBtn.disabled = true;
+                addBtn.className = "w-full bg-zinc-800 text-zinc-500 font-bold py-3.5 rounded-xl cursor-not-allowed flex items-center justify-center space-x-2";
+                addBtn.innerHTML = `<span>Agotado</span>`;
+            } else {
+                priceContainer.innerHTML = `
+                    <span class="text-2xl font-extrabold text-cyan-400">$${product.promoPrice.toFixed(2)}</span>
+                    <span class="text-sm text-zinc-500 line-through">$${product.basePrice.toFixed(2)}</span>
+                `;
+                stockBadge.innerHTML = `<span class="bg-emerald-500/20 text-emerald-400 text-xs px-3 py-1 rounded-lg font-semibold">Stock disponible: ${product.stock} unidades</span>`;
+                addBtn.disabled = false;
+                addBtn.className = "w-full bg-cyan-500 hover:bg-cyan-400 text-black font-bold py-3.5 rounded-xl transition flex items-center justify-center space-x-2 shadow-lg shadow-cyan-500/20";
+                addBtn.innerHTML = `<i class="fa-solid fa-bag-shopping"></i><span>Agregar al Carrito</span>`;
+                addBtn.setAttribute('onclick', `addToCart(${product.id}); closeProductModal();`);
+            }
+
+            // Resaltar miniatura inicial
+            switchModalImage(0);
+
+            document.getElementById('product-modal').classList.remove('hidden');
+        }
+
+        function closeProductModal() {
+            document.getElementById('product-modal').classList.add('hidden');
+        }
+
+        function switchModalImage(index) {
+            const mainImg = document.getElementById('modal-img');
+            mainImg.src = currentModalImages[index];
+
+            const thumb0 = document.getElementById('thumb-0');
+            const thumb1 = document.getElementById('thumb-1');
+
+            if (index === 0) {
+                thumb0.className = "w-14 h-14 rounded-lg overflow-hidden border-2 border-cyan-500 focus:outline-none";
+                thumb1.className = "w-14 h-14 rounded-lg overflow-hidden border-2 border-transparent opacity-70 hover:opacity-100 focus:outline-none";
+            } else {
+                thumb1.className = "w-14 h-14 rounded-lg overflow-hidden border-2 border-cyan-500 focus:outline-none";
+                thumb0.className = "w-14 h-14 rounded-lg overflow-hidden border-2 border-transparent opacity-70 hover:opacity-100 focus:outline-none";
             }
         }
 
@@ -369,7 +481,6 @@
             const existing = cart.find(item => item.id === productId);
 
             if (existing) {
-                // Validación estricta: No permitir superar el stock disponible en la hoja
                 if (existing.quantity >= product.stock) {
                     alert(`Lo sentimos, solo hay ${product.stock} unidad(es) disponible(s) en stock para este producto.`);
                     return;
