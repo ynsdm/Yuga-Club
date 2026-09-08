@@ -80,7 +80,7 @@
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
             <div>
                 <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Catálogo Exclusivo</h2>
-                <p class="text-zinc-400 text-sm mt-1">Selecciona tus favoritos y pídelos directo al WhatsApp.</p>
+                <p class="text-zinc-400 text-sm mt-1">Haz clic en cualquier producto para ver su detalle e imágenes.</p>
             </div>
             
             <!-- Filter Buttons -->
@@ -123,10 +123,10 @@
                 </div>
                 <!-- Mini image switcher buttons -->
                 <div class="flex space-x-3 mt-4" id="modal-thumbnails">
-                    <button onclick="switchModalImage(0)" id="thumb-0" class="w-14 h-14 rounded-lg overflow-hidden border-2 border-cyan-500 focus:outline-none">
+                    <button onclick="switchModalImage(0)" id="thumb-0" class="w-14 h-14 rounded-lg overflow-hidden border-2 border-cyan-500 focus:outline-none cursor-pointer">
                         <img id="thumb-img-0" src="" class="w-full h-full object-cover">
                     </button>
-                    <button onclick="switchModalImage(1)" id="thumb-1" class="w-14 h-14 rounded-lg overflow-hidden border-2 border-transparent opacity-70 hover:opacity-100 focus:outline-none">
+                    <button onclick="switchModalImage(1)" id="thumb-1" class="w-14 h-14 rounded-lg overflow-hidden border-2 border-transparent opacity-70 hover:opacity-100 focus:outline-none cursor-pointer">
                         <img id="thumb-img-1" src="" class="w-full h-full object-cover">
                     </button>
                 </div>
@@ -145,7 +145,7 @@
                     <div id="modal-stock-badge" class="mb-6"></div>
                 </div>
 
-                <button id="modal-add-btn" onclick="" class="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-bold py-3.5 rounded-xl transition flex items-center justify-center space-x-2 shadow-lg shadow-cyan-500/20">
+                <button id="modal-add-btn" class="w-full bg-cyan-500 hover:bg-cyan-400 text-black font-bold py-3.5 rounded-xl transition flex items-center justify-center space-x-2 shadow-lg shadow-cyan-500/20 cursor-pointer">
                     <i class="fa-solid fa-bag-shopping"></i>
                     <span>Agregar al Carrito</span>
                 </button>
@@ -270,8 +270,6 @@
         let paymentType = 'promo';
         let displayedCount = 9;
         let currentCategory = 'all';
-
-        // Variable global para almacenar las 2 imágenes actuales dentro del modal
         let currentModalImages = [];
 
         async function fetchProductsFromSheet() {
@@ -285,10 +283,9 @@
                     category: String(item.category || '').toLowerCase().trim(),
                     promoPrice: Number(item.promoPrice || 0),
                     basePrice: Number(item.basePrice || 0),
-                    stock: Number(item.stock || 0), // <--- Control de inventario desde Google Sheets
+                    stock: Number(item.stock || 0),
                     image: String(item.image || ''),
-                    // Segunda imagen opcional provista desde la hoja o calculada por defecto
-                    secondImage: String(item.secondImage || item.image || ''),
+                    secondImage: String(item.secondImage || item.image || ''), // Segunda imagen opcional (si tu Google Sheet no la tiene, usará la misma por defecto o puedes agregar la columna)
                     description: String(item.description || '')
                 }));
 
@@ -355,11 +352,11 @@
                             ${isAgotado ? '<span class="absolute top-3 right-3 bg-rose-500 text-white text-xs font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-lg">Agotado</span>' : `<span class="absolute top-3 right-3 bg-emerald-500/80 backdrop-blur-md text-black font-bold text-[10px] px-2 py-0.5 rounded-lg">Stock: ${product.stock}</span>`}
                         </div>
                         <div class="p-5">
-                            <h3 class="font-bold text-lg text-white mb-1 hover:text-cyan-400 transition">${product.name}</h3>
+                            <h3 class="font-bold text-lg text-white mb-1 group-hover:text-cyan-400 transition">${product.name}</h3>
                             <p class="text-zinc-400 text-xs line-clamp-2 mb-4">${product.description}</p>
                         </div>
                     </div>
-                    <div class="p-5 pt-0 flex items-center justify-between border-t border-zinc-800/40 mt-auto">
+                    <div class="p-5 pt-0 flex items-center justify-between border-t border-zinc-800/40">
                         <div>
                             ${isAgotado ? `
                                 <span class="text-sm font-bold text-rose-400">No disponible</span>
@@ -371,7 +368,7 @@
                                 <span class="text-[10px] text-zinc-400 uppercase tracking-wider">Precio Divisas (Promo)</span>
                             `}
                         </div>
-                        <button onclick="addToCart(${product.id})" ${isAgotado ? 'disabled' : ''} class="${isAgotado ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed' : 'bg-zinc-800 hover:bg-cyan-500 hover:text-black text-white'} px-4 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2">
+                        <button onclick="addToCart(${product.id})" ${isAgotado ? 'disabled' : ''} class="${isAgotado ? 'bg-zinc-800 text-zinc-500 cursor-not-allowed' : 'bg-zinc-800 hover:bg-cyan-500 hover:text-black text-white'} px-4 py-2.5 rounded-xl font-semibold text-sm transition flex items-center space-x-2 cursor-pointer">
                             <i class="fa-solid ${isAgotado ? 'fa-ban' : 'fa-plus'}"></i>
                             <span>${isAgotado ? 'Agotado' : 'Agregar'}</span>
                         </button>
@@ -391,8 +388,8 @@
             const product = products.find(p => p.id === productId);
             if (!product) return;
 
-            // Definir las dos urls de imagen (la principal y una segunda url personalizada o fallback)
-            currentModalImages = [product.image, product.secondImage || product.image];
+            // Asignar las imágenes (primera y segunda)
+            currentModalImages = [product.image, product.secondImage];
 
             document.getElementById('modal-img').src = currentModalImages[0];
             document.getElementById('thumb-img-0').src = currentModalImages[0];
@@ -413,6 +410,7 @@
                 addBtn.disabled = true;
                 addBtn.className = "w-full bg-zinc-800 text-zinc-500 font-bold py-3.5 rounded-xl cursor-not-allowed flex items-center justify-center space-x-2";
                 addBtn.innerHTML = `<span>Agotado</span>`;
+                addBtn.onclick = null;
             } else {
                 priceContainer.innerHTML = `
                     <span class="text-2xl font-extrabold text-cyan-400">$${product.promoPrice.toFixed(2)}</span>
@@ -420,14 +418,15 @@
                 `;
                 stockBadge.innerHTML = `<span class="bg-emerald-500/20 text-emerald-400 text-xs px-3 py-1 rounded-lg font-semibold">Stock disponible: ${product.stock} unidades</span>`;
                 addBtn.disabled = false;
-                addBtn.className = "w-full bg-cyan-500 hover:bg-cyan-400 text-black font-bold py-3.5 rounded-xl transition flex items-center justify-center space-x-2 shadow-lg shadow-cyan-500/20";
+                addBtn.className = "w-full bg-cyan-500 hover:bg-cyan-400 text-black font-bold py-3.5 rounded-xl transition flex items-center justify-center space-x-2 shadow-lg shadow-cyan-500/20 cursor-pointer";
                 addBtn.innerHTML = `<i class="fa-solid fa-bag-shopping"></i><span>Agregar al Carrito</span>`;
-                addBtn.setAttribute('onclick', `addToCart(${product.id}); closeProductModal();`);
+                addBtn.onclick = function() {
+                    addToCart(product.id);
+                    closeProductModal();
+                };
             }
 
-            // Resaltar miniatura inicial
             switchModalImage(0);
-
             document.getElementById('product-modal').classList.remove('hidden');
         }
 
@@ -443,11 +442,11 @@
             const thumb1 = document.getElementById('thumb-1');
 
             if (index === 0) {
-                thumb0.className = "w-14 h-14 rounded-lg overflow-hidden border-2 border-cyan-500 focus:outline-none";
-                thumb1.className = "w-14 h-14 rounded-lg overflow-hidden border-2 border-transparent opacity-70 hover:opacity-100 focus:outline-none";
+                thumb0.className = "w-14 h-14 rounded-lg overflow-hidden border-2 border-cyan-500 focus:outline-none cursor-pointer";
+                thumb1.className = "w-14 h-14 rounded-lg overflow-hidden border-2 border-transparent opacity-70 hover:opacity-100 focus:outline-none cursor-pointer";
             } else {
-                thumb1.className = "w-14 h-14 rounded-lg overflow-hidden border-2 border-cyan-500 focus:outline-none";
-                thumb0.className = "w-14 h-14 rounded-lg overflow-hidden border-2 border-transparent opacity-70 hover:opacity-100 focus:outline-none";
+                thumb1.className = "w-14 h-14 rounded-lg overflow-hidden border-2 border-cyan-500 focus:outline-none cursor-pointer";
+                thumb0.className = "w-14 h-14 rounded-lg overflow-hidden border-2 border-transparent opacity-70 hover:opacity-100 focus:outline-none cursor-pointer";
             }
         }
 
