@@ -22,72 +22,6 @@
         ::-webkit-scrollbar-track { background: #121212; }
         ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
-
-        .buscador-container {
-            width: 100%;
-            max-width: 450px;
-            background: #202024;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-            border: 1px solid #323238;
-        }
-
-        h2 {
-            margin-top: 0;
-            margin-bottom: 20px;
-            font-size: 1.5rem;
-            color: #f7f7f8;
-            text-align: center;
-        }
-
-        /* Estilo del input de búsqueda */
-        #buscador {
-            width: 100%;
-            padding: 14px 18px;
-            background-color: #121214;
-            border: 2px solid #323238;
-            border-radius: 8px;
-            color: #ffffff;
-            font-size: 1rem;
-            outline: none;
-            transition: all 0.3s ease;
-            box-sizing: border-box;
-        }
-
-        #buscador:focus {
-            border-color: #00b37e; /* Un verde elegante estilo terminal/moderno */
-            box-shadow: 0 0 8px rgba(0, 179, 126, 0.3);
-        }
-
-        #buscador::placeholder {
-            color: #7c7c8a;
-        }
-
-        /* Estilo de la lista de resultados */
-        #lista-resultados {
-            list-style: none;
-            padding: 0;
-            margin-top: 20px;
-            max-height: 250px;
-            overflow-y: auto;
-        }
-
-        #lista-resultados li {
-            background-color: #121214;
-            padding: 12px 16px;
-            margin-bottom: 8px;
-            border-radius: 6px;
-            border: 1px solid transparent;
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-
-        #lista-resultados li:hover {
-            border-color: #00b37e;
-            background-color: #1a1a1e;
-            transform: translateX(4px);
-        }
     </style>
 </head>
 <body class="bg-zinc-950 text-zinc-100 min-h-screen selection:bg-cyan-500 selection:text-black">
@@ -140,37 +74,34 @@
             </div>
         </div>
     </section>
-<div class="buscador-container">
-        <h2>Buscador</h2>
-        <!-- Input de búsqueda -->
-        <input type="text" id="buscador" placeholder="Escribe para buscar..." autocomplete="off">
-        
-        <!-- Lista de elementos -->
-        <ul id="lista-resultados">
-            <li>Artículo sobre Inteligencia Artificial</li>
-            <li>Guía definitiva de Diseño Web</li>
-            <li>Cómo configurar un servidor seguro</li>
-            <li>Tutorial de JavaScript avanzado</li>
-            <li>Consejos de productividad personal</li>
-            <li>Contacto y soporte técnico</li>
-        </ul>
-    </div>
+
     <!-- Main Catalog Section -->
     <main id="catalogo" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-6">
             <div>
                 <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Catálogo Exclusivo</h2>
                 <p class="text-zinc-400 text-sm mt-1">Haz clic en cualquier producto para ver su detalle e imágenes.</p>
             </div>
             
-            <!-- Filter Buttons -->
-            <div class="flex flex-wrap gap-2" id="filter-buttons">
-                <button onclick="filterProducts('all')" class="filter-btn active-filter px-4 py-2 rounded-xl text-sm font-semibold bg-cyan-500 text-black transition">Todos</button>
-                <button onclick="filterProducts('f')" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-zinc-900 text-zinc-300 hover:bg-zinc-800 border border-zinc-800 transition">Perfumes (Fem)</button>
-                <button onclick="filterProducts('m')" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-zinc-900 text-zinc-300 hover:bg-zinc-800 border border-zinc-800 transition">Perfumes (Masc)</button>
-                <button onclick="filterProducts('u')" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-zinc-900 text-zinc-300 hover:bg-zinc-800 border border-zinc-800 transition">Perfumes (Unisex)</button>
-    
+            <!-- Barra de Búsqueda -->
+            <div class="relative w-full md:w-80">
+                <input 
+                    type="text" 
+                    id="search-input" 
+                    oninput="handleSearch(event)"
+                    placeholder="Buscar productos..." 
+                    class="w-full bg-zinc-900 border border-zinc-800 text-zinc-100 placeholder-zinc-500 rounded-xl px-4 py-2.5 pl-10 text-sm focus:outline-none focus:border-cyan-500/80 transition"
+                >
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-3.5 text-zinc-500 text-sm"></i>
             </div>
+        </div>
+
+        <!-- Filter Buttons -->
+        <div class="flex flex-wrap gap-2 mb-12" id="filter-buttons">
+            <button onclick="filterProducts('all')" class="filter-btn active-filter px-4 py-2 rounded-xl text-sm font-semibold bg-cyan-500 text-black transition shadow-lg shadow-cyan-500/20">Todos</button>
+            <button onclick="filterProducts('f')" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-zinc-900 text-zinc-300 hover:bg-zinc-800 border border-zinc-800 transition">Perfumes (Fem)</button>
+            <button onclick="filterProducts('m')" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-zinc-900 text-zinc-300 hover:bg-zinc-800 border border-zinc-800 transition">Perfumes (Masc)</button>
+            <button onclick="filterProducts('u')" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-zinc-900 text-zinc-300 hover:bg-zinc-800 border border-zinc-800 transition">Perfumes (Unisex)</button>
         </div>
 
         <!-- Loading indicator -->
@@ -342,25 +273,8 @@
         </div>
     </div>
 
-    <!-- JavaScript Data & Logic Connected to Google Sheets with Stock Control -->
+    <!-- JavaScript Data & Logic Connected to Google Sheets with Stock Control & Realtime Search -->
     <script>
-
-const buscador = document.getElementById('buscador');
-        const items = document.querySelectorAll('#lista-resultados li');
-
-        buscador.addEventListener('input', (e) => {
-            const texto = e.target.value.toLowerCase();
-            
-            items.forEach(item => {
-                const contenido = item.textContent.toLowerCase();
-                if (contenido.includes(texto)) {
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        });
-        
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz0DVeVLQWjpyq5TziJ4qr1hf_FRHgitLKuzeuyWg8k0VfBg-4B_En7LWgH9IKNcg4mew/exec";
         
         let products = [];
@@ -369,6 +283,7 @@ const buscador = document.getElementById('buscador');
         let displayedCount = 9;
         let currentCategory = 'all';
         let currentModalImages = [];
+        let searchQuery = '';
 
         async function fetchProductsFromSheet() {
             try {
@@ -383,7 +298,7 @@ const buscador = document.getElementById('buscador');
                     basePrice: Number(item.basePrice || 0),
                     stock: Number(item.stock || 0),
                     image: String(item.image || ''),
-                    image2: String(item.image2 || item.image || ''), // Segunda imagen opcional (si tu Google Sheet no la tiene, usará la misma por defecto o puedes agregar la columna)
+                    image2: String(item.image2 || item.image || ''),
                     description: String(item.description || '')
                 }));
 
@@ -413,6 +328,11 @@ const buscador = document.getElementById('buscador');
             updateCartUI();
         }
 
+        function handleSearch(event) {
+            searchQuery = event.target.value.toLowerCase().trim();
+            renderProducts(currentCategory, true);
+        }
+
         function renderProducts(categoryFilter = 'all', reset = false) {
             if (reset) {
                 displayedCount = 9;
@@ -423,14 +343,19 @@ const buscador = document.getElementById('buscador');
             const loadMoreContainer = document.getElementById('load-more-container');
             grid.innerHTML = '';
 
-            const filtered = currentCategory === 'all' 
-                ? products 
-                : products.filter(p => p.category === currentCategory);
+            const filtered = products.filter(p => {
+                const matchesCategory = currentCategory === 'all' || p.category === currentCategory;
+                const matchesSearch = searchQuery === '' || 
+                    p.name.toLowerCase().includes(searchQuery) || 
+                    p.description.toLowerCase().includes(searchQuery);
+
+                return matchesCategory && matchesSearch;
+            });
 
             const productsToShow = filtered.slice(0, displayedCount);
 
             if (filtered.length === 0) {
-                grid.innerHTML = `<p class="col-span-full text-center text-zinc-500 py-12">No hay productos en esta categoría por ahora.</p>`;
+                grid.innerHTML = `<p class="col-span-full text-center text-zinc-500 py-12">No se encontraron productos que coincidan con el criterio de búsqueda.</p>`;
                 loadMoreContainer.classList.add('hidden');
                 return;
             }
@@ -486,7 +411,6 @@ const buscador = document.getElementById('buscador');
             const product = products.find(p => p.id === productId);
             if (!product) return;
 
-            // Asignar las imágenes (primera y segunda)
             currentModalImages = [product.image, product.image2];
 
             document.getElementById('modal-img').src = currentModalImages[0];
