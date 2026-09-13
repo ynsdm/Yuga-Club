@@ -22,6 +22,72 @@
         ::-webkit-scrollbar-track { background: #121212; }
         ::-webkit-scrollbar-thumb { background: #27272a; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #3f3f46; }
+
+        .buscador-container {
+            width: 100%;
+            max-width: 450px;
+            background: #202024;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            border: 1px solid #323238;
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: #f7f7f8;
+            text-align: center;
+        }
+
+        /* Estilo del input de búsqueda */
+        #buscador {
+            width: 100%;
+            padding: 14px 18px;
+            background-color: #121214;
+            border: 2px solid #323238;
+            border-radius: 8px;
+            color: #ffffff;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        #buscador:focus {
+            border-color: #00b37e; /* Un verde elegante estilo terminal/moderno */
+            box-shadow: 0 0 8px rgba(0, 179, 126, 0.3);
+        }
+
+        #buscador::placeholder {
+            color: #7c7c8a;
+        }
+
+        /* Estilo de la lista de resultados */
+        #lista-resultados {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        #lista-resultados li {
+            background-color: #121214;
+            padding: 12px 16px;
+            margin-bottom: 8px;
+            border-radius: 6px;
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        #lista-resultados li:hover {
+            border-color: #00b37e;
+            background-color: #1a1a1e;
+            transform: translateX(4px);
+        }
     </style>
 </head>
 <body class="bg-zinc-950 text-zinc-100 min-h-screen selection:bg-cyan-500 selection:text-black">
@@ -74,7 +140,21 @@
             </div>
         </div>
     </section>
-
+<div class="buscador-container">
+        <h2>Buscador</h2>
+        <!-- Input de búsqueda -->
+        <input type="text" id="buscador" placeholder="Escribe para buscar..." autocomplete="off">
+        
+        <!-- Lista de elementos -->
+        <ul id="lista-resultados">
+            <li>Artículo sobre Inteligencia Artificial</li>
+            <li>Guía definitiva de Diseño Web</li>
+            <li>Cómo configurar un servidor seguro</li>
+            <li>Tutorial de JavaScript avanzado</li>
+            <li>Consejos de productividad personal</li>
+            <li>Contacto y soporte técnico</li>
+        </ul>
+    </div>
     <!-- Main Catalog Section -->
     <main id="catalogo" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
         <div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
@@ -264,6 +344,23 @@
 
     <!-- JavaScript Data & Logic Connected to Google Sheets with Stock Control -->
     <script>
+
+const buscador = document.getElementById('buscador');
+        const items = document.querySelectorAll('#lista-resultados li');
+
+        buscador.addEventListener('input', (e) => {
+            const texto = e.target.value.toLowerCase();
+            
+            items.forEach(item => {
+                const contenido = item.textContent.toLowerCase();
+                if (contenido.includes(texto)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+        
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz0DVeVLQWjpyq5TziJ4qr1hf_FRHgitLKuzeuyWg8k0VfBg-4B_En7LWgH9IKNcg4mew/exec";
         
         let products = [];
