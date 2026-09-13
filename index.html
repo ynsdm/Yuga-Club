@@ -96,12 +96,26 @@
             </div>
         </div>
 
-        <!-- Filter Buttons -->
-        <div class="flex flex-wrap gap-2 mb-12" id="filter-buttons">
-            <button onclick="filterProducts('all')" class="filter-btn active-filter px-4 py-2 rounded-xl text-sm font-semibold bg-cyan-500 text-black transition shadow-lg shadow-cyan-500/20">Todos</button>
-            <button onclick="filterProducts('f')" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-zinc-900 text-zinc-300 hover:bg-zinc-800 border border-zinc-800 transition">Perfumes (Fem)</button>
-            <button onclick="filterProducts('m')" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-zinc-900 text-zinc-300 hover:bg-zinc-800 border border-zinc-800 transition">Perfumes (Masc)</button>
-            <button onclick="filterProducts('u')" class="filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-zinc-900 text-zinc-300 hover:bg-zinc-800 border border-zinc-800 transition">Perfumes (Unisex)</button>
+        <!-- Categorías Principales -->
+        <div class="mb-4">
+            <span class="text-xs font-semibold uppercase text-zinc-500 tracking-wider block mb-2">Categoría</span>
+            <div class="flex flex-wrap gap-2" id="filter-buttons">
+                <button onclick="filterCategory('all')" class="cat-btn active-cat px-4 py-2 rounded-xl text-sm font-semibold bg-cyan-500 text-black transition shadow-lg shadow-cyan-500/20">Todos</button>
+                <button onclick="filterCategory('perfumes')" class="cat-btn px-4 py-2 rounded-xl text-sm font-semibold bg-zinc-900 text-zinc-300 hover:bg-zinc-800 border border-zinc-800 transition">Perfumes</button>
+                <button onclick="filterCategory('ropa')" class="cat-btn px-4 py-2 rounded-xl text-sm font-semibold bg-zinc-900 text-zinc-300 hover:bg-zinc-800 border border-zinc-800 transition">Ropa</button>
+                <button onclick="filterCategory('accesorios')" class="cat-btn px-4 py-2 rounded-xl text-sm font-semibold bg-zinc-900 text-zinc-300 hover:bg-zinc-800 border border-zinc-800 transition">Accesorios</button>
+            </div>
+        </div>
+
+        <!-- Subcategorías (Géneros / Opciones) -->
+        <div class="mb-12">
+            <span class="text-xs font-semibold uppercase text-zinc-500 tracking-wider block mb-2">Subcategoría</span>
+            <div class="flex flex-wrap gap-2" id="subfilter-buttons">
+                <button onclick="filterSubcategory('all')" class="subcat-btn active-subcat px-3 py-1.5 rounded-lg text-xs font-semibold bg-zinc-100 text-black transition">Todas</button>
+                <button onclick="filterSubcategory('masculino')" class="subcat-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-zinc-900 text-zinc-400 hover:text-zinc-200 border border-zinc-800 transition">Masculino</button>
+                <button onclick="filterSubcategory('femenino')" class="subcat-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-zinc-900 text-zinc-400 hover:text-zinc-200 border border-zinc-800 transition">Femenino</button>
+                <button onclick="filterSubcategory('unisex')" class="subcat-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-zinc-900 text-zinc-400 hover:text-zinc-200 border border-zinc-800 transition">Unisex</button>
+            </div>
         </div>
 
         <!-- Loading indicator -->
@@ -147,7 +161,10 @@
             <!-- Modal Content Info -->
             <div class="md:w-1/2 p-6 flex flex-col justify-between overflow-y-auto">
                 <div>
-                    <span id="modal-category" class="inline-block bg-zinc-800 text-cyan-400 text-xs font-semibold px-2.5 py-1 rounded-lg uppercase tracking-wider mb-3"></span>
+                    <div class="flex gap-2 mb-3">
+                        <span id="modal-category" class="bg-zinc-800 text-cyan-400 text-xs font-semibold px-2.5 py-1 rounded-lg uppercase tracking-wider"></span>
+                        <span id="modal-subcategory" class="bg-zinc-800 text-zinc-300 text-xs font-semibold px-2.5 py-1 rounded-lg uppercase tracking-wider"></span>
+                    </div>
                     <h3 id="modal-title" class="text-2xl font-bold text-white mb-2"></h3>
                     <div id="modal-price-container" class="flex items-baseline space-x-3 mb-4">
                         <span id="modal-promo-price" class="text-2xl font-extrabold text-cyan-400"></span>
@@ -273,7 +290,7 @@
         </div>
     </div>
 
-    <!-- JavaScript Data & Logic Connected to Google Sheets with Stock Control & Realtime Search -->
+    <!-- JavaScript Data & Logic Connected to Google Sheets -->
     <script>
         const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbz0DVeVLQWjpyq5TziJ4qr1hf_FRHgitLKuzeuyWg8k0VfBg-4B_En7LWgH9IKNcg4mew/exec";
         
@@ -282,8 +299,9 @@
         let paymentType = 'promo';
         let displayedCount = 9;
         let currentCategory = 'all';
-        let currentModalImages = [];
+        let currentSubcategory = 'all';
         let searchQuery = '';
+        let currentModalImages = [];
 
         async function fetchProductsFromSheet() {
             try {
@@ -294,6 +312,7 @@
                     id: Number(item.id),
                     name: String(item.name || ''),
                     category: String(item.category || '').toLowerCase().trim(),
+                    subcategory: String(item.subcategory || item.subcategoria || '').toLowerCase().trim(),
                     promoPrice: Number(item.promoPrice || 0),
                     basePrice: Number(item.basePrice || 0),
                     stock: Number(item.stock || 0),
@@ -303,7 +322,7 @@
                 }));
 
                 document.getElementById('loading-indicator').style.display = 'none';
-                renderProducts('all', true);
+                renderProducts(true);
             } catch (error) {
                 console.error("Error al conectar con Google Sheets:", error);
                 document.getElementById('loading-indicator').innerHTML = `
@@ -330,13 +349,32 @@
 
         function handleSearch(event) {
             searchQuery = event.target.value.toLowerCase().trim();
-            renderProducts(currentCategory, true);
+            renderProducts(true);
         }
 
-        function renderProducts(categoryFilter = 'all', reset = false) {
+        function filterCategory(category) {
+            currentCategory = category;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.className = "cat-btn px-4 py-2 rounded-xl text-sm font-semibold bg-zinc-900 text-zinc-300 hover:bg-zinc-800 border border-zinc-800 transition";
+            });
+            event.target.className = "cat-btn active-cat px-4 py-2 rounded-xl text-sm font-semibold bg-cyan-500 text-black transition shadow-lg shadow-cyan-500/20";
+            
+            renderProducts(true);
+        }
+
+        function filterSubcategory(subcategory) {
+            currentSubcategory = subcategory;
+            document.querySelectorAll('.subcat-btn').forEach(btn => {
+                btn.className = "subcat-btn px-3 py-1.5 rounded-lg text-xs font-semibold bg-zinc-900 text-zinc-400 hover:text-zinc-200 border border-zinc-800 transition";
+            });
+            event.target.className = "subcat-btn active-subcat px-3 py-1.5 rounded-lg text-xs font-semibold bg-zinc-100 text-black transition";
+            
+            renderProducts(true);
+        }
+
+        function renderProducts(reset = false) {
             if (reset) {
                 displayedCount = 9;
-                currentCategory = categoryFilter;
             }
 
             const grid = document.getElementById('product-grid');
@@ -345,17 +383,18 @@
 
             const filtered = products.filter(p => {
                 const matchesCategory = currentCategory === 'all' || p.category === currentCategory;
+                const matchesSubcategory = currentSubcategory === 'all' || p.subcategory === currentSubcategory;
                 const matchesSearch = searchQuery === '' || 
                     p.name.toLowerCase().includes(searchQuery) || 
                     p.description.toLowerCase().includes(searchQuery);
 
-                return matchesCategory && matchesSearch;
+                return matchesCategory && matchesSubcategory && matchesSearch;
             });
 
             const productsToShow = filtered.slice(0, displayedCount);
 
             if (filtered.length === 0) {
-                grid.innerHTML = `<p class="col-span-full text-center text-zinc-500 py-12">No se encontraron productos que coincidan con el criterio de búsqueda.</p>`;
+                grid.innerHTML = `<p class="col-span-full text-center text-zinc-500 py-12">No se encontraron productos que coincidan con los filtros seleccionados.</p>`;
                 loadMoreContainer.classList.add('hidden');
                 return;
             }
@@ -369,9 +408,12 @@
                     <div class="cursor-pointer" onclick="openProductModal(${product.id})">
                         <div class="relative overflow-hidden aspect-square bg-zinc-950">
                             <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 ${isAgotado ? 'grayscale' : ''}">
-                            <span class="absolute top-3 left-3 bg-black/60 backdrop-blur-md text-cyan-400 text-xs font-semibold px-2.5 py-1 rounded-lg uppercase tracking-wider">
-                                ${product.category}
-                            </span>
+                            <div class="absolute top-3 left-3 flex flex-col gap-1">
+                                <span class="bg-black/60 backdrop-blur-md text-cyan-400 text-xs font-semibold px-2.5 py-1 rounded-lg uppercase tracking-wider w-fit">
+                                    ${product.category}
+                                </span>
+                                ${product.subcategory ? `<span class="bg-black/60 backdrop-blur-md text-zinc-300 text-[10px] font-semibold px-2 py-0.5 rounded-md uppercase tracking-wider w-fit">${product.subcategory}</span>` : ''}
+                            </div>
                             ${isAgotado ? '<span class="absolute top-3 right-3 bg-rose-500 text-white text-xs font-bold px-2.5 py-1 rounded-lg uppercase tracking-wider shadow-lg">Agotado</span>' : `<span class="absolute top-3 right-3 bg-emerald-500/80 backdrop-blur-md text-black font-bold text-[10px] px-2 py-0.5 rounded-lg">Stock: ${product.stock}</span>`}
                         </div>
                         <div class="p-5">
@@ -418,6 +460,15 @@
             document.getElementById('thumb-img-1').src = currentModalImages[1];
 
             document.getElementById('modal-category').textContent = product.category;
+            
+            const subcatEl = document.getElementById('modal-subcategory');
+            if (product.subcategory) {
+                subcatEl.textContent = product.subcategory;
+                subcatEl.classList.remove('hidden');
+            } else {
+                subcatEl.classList.add('hidden');
+            }
+
             document.getElementById('modal-title').textContent = product.name;
             document.getElementById('modal-description').textContent = product.description;
 
@@ -474,16 +525,7 @@
 
         function loadMoreProducts() {
             displayedCount += 9;
-            renderProducts(currentCategory, false);
-        }
-
-        function filterProducts(category) {
-            document.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.className = "filter-btn px-4 py-2 rounded-xl text-sm font-semibold bg-zinc-900 text-zinc-300 hover:bg-zinc-800 border border-zinc-800 transition";
-            });
-            event.target.className = "filter-btn active-filter px-4 py-2 rounded-xl text-sm font-semibold bg-cyan-500 text-black transition shadow-lg shadow-cyan-500/20";
-            
-            renderProducts(category, true);
+            renderProducts(false);
         }
 
         function toggleCart() {
